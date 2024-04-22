@@ -1,0 +1,19 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: rem(23px) rem(70px) rem(24px) rem(98px);
+    background-color: $main-color;
+
+    &-logo {
+        text-transform: uppercase;
+        font-family: Gilroy-Bold;
+        font-weight: bold;
+        font-size: rem(25px);
+        color: #FFFFFF;
+    }
+}
