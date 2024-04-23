@@ -2,11 +2,17 @@
 @import '../../variables.scss';
 
 .header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: rem(23px) rem(70px) rem(24px) rem(98px);
-    background-color: $main-color;
+    height: rem(2000px);
+
+    &-menu {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: rem(23px) rem(70px) rem(24px) rem(98px);
+        background-color: $main-color;
+
+
+    }
 
     &-logo {
         text-transform: uppercase;
@@ -28,25 +34,25 @@
         background-color: $main-color-2;
         border-radius: rem(10px);
 
-            &-loc {
-                width: rem(25px);
-                height: rem(25px);
-            }
+        &-loc {
+            width: rem(25px);
+            height: rem(25px);
+        }
 
-            &-search {
-                width: rem(25px);
-                height: rem(25px);
-            }
+        &-search {
+            width: rem(25px);
+            height: rem(25px);
+        }
 
-            & input {
-                width: 100%;
-                background-color: $main-color-2;
-                border: none;
-                color: $input-color-text;
-                font-size: rem(18px);
-                margin-left: rem(12px);
-                font-family: Gilroy-Normal;
-            }
+        & input {
+            width: 100%;
+            background-color: $main-color-2;
+            border: none;
+            color: $input-color-text;
+            font-size: rem(18px);
+            margin-left: rem(12px);
+            font-family: Gilroy-Normal;
+        }
     }
 
     &-contact {
@@ -93,7 +99,7 @@
             padding: rem(5px);
             border-right: 1px solid #FFFFFF;
             font-size: rem(14px);
-            color:#FFFFFF;
+            color: #FFFFFF;
             padding: rem(10px) rem(0px);
             width: rem(78px);
         }
@@ -108,6 +114,73 @@
             height: rem(25px);
             background-color: #FFFFFF;
             margin-left: rem(10px);
+        }
+    }
+
+    &-main {
+        width: rem(1440px);
+        height: rem(484px);
+        overflow: hidden;
+        position: relative;
+
+        &-bg {
+            & img {
+                transform: rotate(-90deg) scale(0.61);
+                margin-top: rem(-623px);
+                margin-left: rem(170px);
+            }
+        }
+
+        &-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: Zing-Rust-Demo;
+            color: #FFFFFF;
+            width: 1102px;
+            height: 100%;
+            background: linear-gradient(90deg, #211F20,
+                    /* rgba(33, 31, 32, 0.9), */
+                    rgba(68, 64, 63, 1), transparent 85%);
+            padding: rem(118px) rem(100px);
+
+            & h1 {
+                transform: rotate(-8.37deg);
+                width: rem(600px);
+                text-align: center;
+                font-size: rem(67px);
+                line-height: rem(73.16px);
+                position: relative;
+            }
+
+            & h1::before {
+                content: 'Доставка вкуснейших блюд за 60 минут';
+                display: block;
+                position: absolute;
+                top: rem(4px);
+                left: rem(-12px);
+                text-shadow: -1px 1px 3px #FFFFFF;
+                color: #211F20;
+                z-index: -1;
+            }
+        }
+
+        &-subtitle {
+            width: rem(210px);
+            transform: skew(-16deg)  rotate(-8.37deg);
+            margin-left: rem(200px);
+            margin-top: rem(32px);
+            background: $main-color-green;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+
+            & div {
+                font-size: rem(25px);
+                transform: skew(15deg) rotate(-0.5deg);
+            }
         }
     }
 }
