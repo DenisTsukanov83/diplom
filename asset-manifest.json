@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/diplom/static/css/main.442dea44.css",
+    "main.js": "/diplom/static/js/main.ad7a2e59.js",
+    "static/media/main-bg.jpeg": "/diplom/static/media/main-bg.3aea16c2ab84af21efb6.jpeg",
+    "static/media/Card-1.png": "/diplom/static/media/Card-1.5be18e613249f5c4477e.png",
+    "static/media/zing.rust-demo-base.woff": "/diplom/static/media/zing.rust-demo-base.a17ec933aca33742f588.woff",
+    "static/media/zing.rust-demo-base.woff2": "/diplom/static/media/zing.rust-demo-base.d4cb2924e20c6a64ba81.woff2",
+    "static/media/Gilroy-Medium.woff": "/diplom/static/media/Gilroy-Medium.2bc7f5d7ea77ee1bddb3.woff",
+    "static/media/Gilroy-Bold.woff": "/diplom/static/media/Gilroy-Bold.5fb38b9fa452b5814397.woff",
+    "static/media/Gilroy-Medium.woff2": "/diplom/static/media/Gilroy-Medium.4a930cf8b0cbb786bb15.woff2",
+    "static/media/Gilroy-Bold.woff2": "/diplom/static/media/Gilroy-Bold.441bea6a6ead8bdd73cd.woff2",
+    "static/media/Location.png": "/diplom/static/media/Location.4c34b71b56ee9c1fc58b.png",
+    "index.html": "/diplom/index.html",
+    "main.442dea44.css.map": "/diplom/static/css/main.442dea44.css.map",
+    "main.ad7a2e59.js.map": "/diplom/static/js/main.ad7a2e59.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.442dea44.css",
+    "static/js/main.ad7a2e59.js"
+  ]
+}
