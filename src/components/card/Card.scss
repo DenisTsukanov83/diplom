@@ -71,4 +71,14 @@
         width: rem(22px);
         height: auto;
     }
+
+    &-btn-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $main-gradient-green;
+        padding: rem(15px) rem(16px);
+        border: none;
+        border-radius: rem(10px);
+    }
 }

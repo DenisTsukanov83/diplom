@@ -19,7 +19,7 @@ function Card() {
                 <div className="card-text">
                     Фаршированный гречневой кашей, курагой, апельсином и зеленым яблоком
                 </div>
-                <div className="card-footer">
+                {/* <div className="card-footer">
                     <div className="card-price">620 ₽</div>
                     <button className="card-btn">
                         <div>В корзину</div>
@@ -27,6 +27,11 @@ function Card() {
                             <img src={Buy} alt="Buy.png" />
                         </div>
                     </button>
+                </div> */}
+                <div className="card-footer">
+                    <button className="card-btn-2">-</button>
+                    <div className="card-price">620 ₽</div>
+                    <button className="card-btn-2">+</button>
                 </div>
             </div>
         </div>
