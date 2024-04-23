@@ -1,0 +1,52 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.cards {
+    height: rem(800px);
+    background-color: $main-color;
+
+    &-menu ul {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        font-family: Gilroy-Normal;
+        font-size: rem(18px);
+        padding: rem(30px) rem(90px) rem(0px) rem(78px);
+        border-bottom: rem(1px) solid rgb(153, 152, 152);
+        width: 100%;
+        height: rem(78px);
+
+        & li {
+            color: rgb(153, 152, 152);
+            height: rem(49px);
+        }
+    }
+
+    &-content {
+        & h2 {
+            font-family: Gilroy-Bold;
+            color: $white-color;
+            font-size: rem(32px);
+            text-transform: uppercase;
+            padding-left: rem(20px);
+            border-left: rem(3px) solid $main-color-green;
+            margin-top: rem(50px);
+            margin-left: rem(90px);
+    
+            
+        }
+
+        &-wrapper {
+            margin-top: rem(50px);
+            padding: rem(0px) rem(38px);
+            display: flex;
+            justify-content: space-between;
+            gap: rem(10px);
+        }
+    }
+}
+
+.li-changed {
+    color: $white-color !important;
+    border-bottom: rem(4px) solid $main-color-green;
+}

@@ -1,0 +1,74 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.card {
+    width: rem(325px);
+    height: rem(385px);
+    font-family: Gilroy-Normal;
+    color: $white-color;
+    background-color: $main-color-2;
+    overflow: hidden;
+    border-radius: rem(10px);
+
+    &-img {
+        width: 100%;
+
+    }
+
+    &-content {
+        padding: rem(10px) rem(20px);
+    }
+
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
+
+    &-header h3 {
+        font-size: rem(22px);
+        font-family: Gilroy-Bold;
+    }
+
+    &-header span {
+        font-size: rem(12px);
+    }
+
+    &-text {
+        font-size: rem(13px);
+        width: 90%;
+        margin-top: rem(8px);
+    }
+
+    &-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: rem(18px);
+    }
+
+    &-price {
+        font-size: rem(20px);
+    }
+
+    &-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: $main-gradient-green;
+        width: rem(138px);
+        margin-right: rem(-4px);
+        height: rem(43px);
+        border-radius: rem(10px);
+        padding: 0 rem(16px)  0 rem(18px);
+        border: none;
+        color: $white-color;
+        cursor: pointer;
+        font-size: rem(14px);
+    }
+
+    &-btn>div:last-child {
+        width: rem(22px);
+        height: auto;
+    }
+}
