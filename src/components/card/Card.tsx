@@ -19,20 +19,27 @@ function Card() {
                 <div className="card-text">
                     Фаршированный гречневой кашей, курагой, апельсином и зеленым яблоком
                 </div>
-                {/* <div className="card-footer">
+
+                {/* Switch!!! */}
+                <div className="card-footer">
                     <div className="card-price">620 ₽</div>
-                    <button className="card-btn">
+                    <button className="btn card-btn-basket">
                         <div>В корзину</div>
                         <div>
                             <img src={Buy} alt="Buy.png" />
                         </div>
                     </button>
-                </div> */}
-                <div className="card-footer">
-                    <button className="card-btn-2">-</button>
-                    <div className="card-price">620 ₽</div>
-                    <button className="card-btn-2">+</button>
                 </div>
+                {/* <div className="card-footer">
+                    <button className=" btn card-btn-minus">
+                        <div></div>
+                    </button>
+                    <div className="card-price">620 ₽</div>
+                    <button className="btn card-btn-plus">
+                        <div></div>
+                        <div></div>
+                    </button>
+                </div> */}
             </div>
         </div>
     );

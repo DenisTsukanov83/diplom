@@ -51,34 +51,76 @@
         font-size: rem(20px);
     }
 
-    &-btn {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: $main-gradient-green;
+    &-btn-basket {
         width: rem(138px);
         margin-right: rem(-4px);
         height: rem(43px);
         border-radius: rem(10px);
         padding: 0 rem(16px)  0 rem(18px);
-        border: none;
-        color: $white-color;
-        cursor: pointer;
         font-size: rem(14px);
+        justify-content: space-between;
+
+        & div:last-child {
+            width: rem(25px);
+        }
     }
 
-    &-btn>div:last-child {
-        width: rem(22px);
-        height: auto;
-    }
-
-    &-btn-2 {
+    &-footer {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        background: $main-gradient-green;
-        padding: rem(15px) rem(16px);
-        border: none;
-        border-radius: rem(10px);
+        margin-top: rem(18px);
     }
+
+    &-btn-minus {
+        width: rem(62px);
+        height: rem(44px);
+        margin-left: rem(-5px);
+
+        & div {
+            width: rem(22px);
+            height: auto;
+            width: rem(18px);
+            height: rem(3.27px);
+            background-color: $white-color;
+            border-radius: rem(4px);
+            margin: auto;
+        }
+    }
+
+    
+
+    &-btn-plus {
+        width: rem(62px);
+        height: rem(44px);
+        margin-right: rem(-3px);
+
+        & div:nth-child(1) {
+            width: rem(18px);
+            height: rem(3.27px);
+            background-color: $white-color;
+            border-radius: rem(4px);
+            margin-left: rem(22px);
+            
+        }
+
+        & div:nth-child(2) {
+            height: rem(18px);
+            width: rem(3.27px);
+            background-color: $white-color;
+            border-radius: rem(4px);
+            margin-left: rem(-11px);
+        }
+    }
+
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    background: $main-gradient-green;
+    border: none;
+    color: $white-color;
+    cursor: pointer;
+    border-radius: rem(10px);
 }
