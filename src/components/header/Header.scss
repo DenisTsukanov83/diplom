@@ -23,6 +23,10 @@
         width: rem(170px);
     }
 
+    &-hamburger {
+        display: none;
+    }
+
     &-input {
         display: flex;
         justify-content: space-between;
@@ -51,6 +55,8 @@
             font-size: rem(18px);
             margin-left: rem(12px);
             font-family: Gilroy-Normal;
+            grid-column: 1 / 4;
+            grid-row: 2 / 3;
         }
     }
 
@@ -91,6 +97,8 @@
         margin-left: rem(195px);
         padding: rem(7px) rem(13px) rem(7px) rem(22px);
         border-radius: rem(10px);
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
 
         &-title {
             display: flex;
@@ -178,6 +186,57 @@
                 font-size: rem(25px);
                 transform: skew(15deg) rotate(-0.5deg);
             }
+        }
+    }
+}
+
+@media (max-width: 576px)  {
+    .header {
+        &-menu {
+            height: rem(545px);
+            padding: rem(12px) rem(55px) rem(15px) rem(55px);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            align-items: normal;
+        }
+
+        &-logo {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            font-size: rem(90px);
+        }
+
+        &-hamburger {
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            width: max-content;
+            margin-top: rem(32px);
+            margin-left: rem(37px);
+            cursor: pointer;
+
+            & div:first-child>div {
+                width: rem(95px);
+                height: rem(13px);
+                background-color: $main-color-green;
+                border-radius: rem(5px);
+                margin-bottom: rem(15px);
+            }
+
+            & div:last-child {
+                margin-top: rem(10px);
+                text-transform: uppercase;
+                font-family: Gilroy-Bold;
+                font-size: rem(48px);
+                color: $white-color;
+            }
+        }
+
+        &-contact {
+            display: none;
         }
     }
 }

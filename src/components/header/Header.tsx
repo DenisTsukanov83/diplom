@@ -12,6 +12,14 @@ function Header() {
                 <div className="header-logo">
                     logos
                 </div>
+                <div className="header-hamburger">
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>Меню</div>
+                </div>
                 <div className="header-input">
                     <div className="header-input-loc">
                         <img src={location} alt="Location.png" />
