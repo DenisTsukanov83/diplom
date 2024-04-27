@@ -3,14 +3,14 @@ import './App.scss';
 
 import Header from '../header/Header';
 import Main from '../main/Main';
-import Map from '../map/Map';
+import MyMap from '../map/MyMap';
 
 function App() {
     return (
         <div className="app">
             <Header/>
             <Main/>
-            <Map/>
+            <MyMap/>
         </div>
     );
 }
