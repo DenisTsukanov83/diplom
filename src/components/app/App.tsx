@@ -4,6 +4,7 @@ import './App.scss';
 import Header from '../header/Header';
 import Main from '../main/Main';
 import MyMap from '../map/MyMap';
+import Footer from '../footer/Footer';
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Header/>
             <Main/>
             <MyMap/>
+            <Footer/>
         </div>
     );
 }

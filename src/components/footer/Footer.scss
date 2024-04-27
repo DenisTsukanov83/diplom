@@ -1,0 +1,76 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.footer {
+    display: flex;
+    align-items: center;
+    gap: rem(55px);
+    background: linear-gradient(-90deg, #44403F, #211F20);
+    padding: rem(5px) rem(40px) rem(0) rem(32px);
+    font-family: Gilroy-Normal;
+    color: $white-color;
+    width: 100%;
+    height: rem(175px);
+    
+
+    &-arrow {
+        width: rem(65px);
+        height: rem(65px);
+        margin-top: rem(-25px);
+        cursor: pointer;
+    }
+
+    &-logo {
+        & h2 {
+            letter-spacing: rem(4px);
+            font-weight: 700;
+            font-size: rem(25px);
+            text-transform: uppercase;
+        }
+
+        & div:nth-child(2) {
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: rem(11.4px);
+            margin-top: rem(12px);
+        }
+
+        & div:nth-child(3) {
+            margin-top: rem(7px);
+        }
+
+        & div:nth-child(4) {
+            margin-top: rem(7px);
+        }
+
+        & div:nth-child(5) {
+            margin-top: rem(7px);
+        }
+
+        & a  {
+            font-weight: 500;
+            font-size: rem(14.7px);
+            text-decoration: underline rgb(153, 152, 152);;
+            color: $white-color;
+        }
+    }
+
+    &-nav {
+        width: rem(625px);
+        margin-left: rem(25px);
+
+        & ul {
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none;
+            
+
+            & a {
+                text-decoration: none;
+                color: $white-color;
+                font-weight: 500;
+                font-size: rem(20px);
+            }
+        }
+    }
+}
