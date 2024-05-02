@@ -1,0 +1,63 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+
+.basketAddItem {
+    width: rem(280px);
+    padding: rem(19px) rem(35px) rem(13px) rem(35px);
+    background: linear-gradient(#494544, #504B4A);
+    border-left: 1px solid rgb(153, 152, 152);
+    margin-left: rem(-1px);
+    &-img {
+        width: 100%;
+        height: rem(125px);
+        overflow: hidden;
+        border-radius: rem(10px);
+    }
+
+    &-title {
+        font-family: Gilroy-Bold;
+        font-size: rem(14.3px);
+        text-transform: uppercase;
+        text-align: center;
+        margin-top: rem(12px);
+        color: $white-color;
+    }
+
+    &-add {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        width: rem(80px);
+        margin-top: rem(10px);
+
+        &>div {
+            color: #C6CED1;
+            font-family: Gilroy-Normal;
+            font-size: rem(12px);
+        }
+
+        &>button {
+            width: rem(20px);
+            height: rem(20px);
+            border-radius: 50%;
+            background-color: $main-color-green;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: rem(5px) rem(5px);
+
+        }
+    }
+
+    &-price {
+        font-family: Gilroy-Bold;
+        color: $white-color;
+        text-align: center;
+        font-size: (18px);
+        margin-top: rem(7px);
+    }
+}

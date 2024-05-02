@@ -5,8 +5,7 @@
     display: flex;
     background: linear-gradient(90deg, #494544, #504B4A);
     padding: rem(20px) rem(42px) rem(20px) rem(19px);
-    border-radius: rem(10px);
-    margin-bottom: rem(5px);
+    border-bottom: 1px solid rgb(153, 152, 152);
 
     &-img {
         width: rem(117px);
