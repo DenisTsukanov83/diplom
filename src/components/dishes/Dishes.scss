@@ -1,0 +1,28 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.cards {
+    &-menu ul {
+        background-color: $main-color;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        font-family: Gilroy-Normal;
+        font-size: rem(18px);
+        padding: rem(30px) rem(90px) rem(0px) rem(78px);
+        border-bottom: rem(1px) solid rgb(153, 152, 152);
+        width: 100%;
+        height: rem(78px);
+    
+        & li {
+            color: rgb(153, 152, 152);
+            height: rem(49px);
+            cursor: pointer;
+        }
+    }
+}
+
+.li-changed {
+    color: $white-color !important;
+    border-bottom: rem(4px) solid $main-color-green;
+}

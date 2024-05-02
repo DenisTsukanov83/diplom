@@ -1,0 +1,96 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.basketItem {
+    display: flex;
+    background: linear-gradient(90deg, #494544, #504B4A);
+    padding: rem(20px) rem(42px) rem(20px) rem(19px);
+    border-radius: rem(10px);
+    margin-bottom: rem(5px);
+
+    &-img {
+        width: rem(117px);
+        height: rem(86px);
+    }
+
+    &-text {
+        margin-left: rem(45px);
+        margin-top: rem(10px);
+
+        & div:first-child {
+            font-family: Gilroy-Bold;
+            font-size: rem(18px);
+            text-transform: uppercase;
+            color: $white-color;
+        }
+
+        & div:last-child {
+            font-family: Gilroy-Normal;
+            font-size: rem(12px);
+            margin-top: rem(5px);
+            width: rem(275px);
+            color: #A6A7AB;
+        }
+    }
+
+    &-number {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-left: rem(224px);
+        margin-top: rem(2px);
+        width: rem(91px);
+        font-family: Gilroy-Normal;
+
+        &-plus,
+        &-minus {
+            width: rem(27px);
+            height: rem(27px);
+            border-radius: 50%;
+            background-color: $main-color-green;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        &-plus {
+            padding: rem(7px) rem(7px);
+        }
+
+        &-minus {
+            padding: rem(12px) rem(7px);
+        }
+
+        &-result {
+            font-family: Greenwich-Bold;
+            font-size: rem(20px);
+            color: $white-color;
+        }
+    }
+
+    &-price {
+        font-family: Gilroy-Bold;
+        font-size: rem(20px);
+        color: $white-color;
+        margin-left: rem(135px);
+        margin-top: rem(32px);
+    }
+
+    &-delete {
+        width: rem(27px);
+        height: rem(27px);
+        border-radius: 50%;
+        background-color: $main-color-green;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        padding: rem(7px) rem(7px);
+        transform: rotate(45deg);
+        margin-left: rem(80px);
+        margin-top: rem(30px);
+    }
+}

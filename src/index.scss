@@ -15,6 +15,11 @@
     src: url(../src/assets/fonts/zing.rust-demo-base.woff), url(../src/assets/fonts/zing.rust-demo-base.woff2);
 }
 
+@font-face {
+    font-family: Greenwich-Bold;
+    src: url(../src/assets/fonts/Greenwich-Bold.woff), url(../src/assets/fonts/Greenwich-Bold.woff2);
+}
+
 
 $baseFontSize: 16;
 @function rem($pixels) {
@@ -30,10 +35,9 @@ $baseFontSize: 16;
 
 body, html {
     font-size: 1vw;
-    background-color: $main-color-3;
 }
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
