@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/diplom/static/css/main.783462e6.css",
-    "main.js": "/diplom/static/js/main.66c451a2.js",
+    "main.css": "/diplom/static/css/main.83a64f22.css",
+    "main.js": "/diplom/static/js/main.accb1e46.js",
     "static/media/main-bg.jpeg": "/diplom/static/media/main-bg.3aea16c2ab84af21efb6.jpeg",
     "static/media/about-bg.png": "/diplom/static/media/about-bg.4bded7717ae161118acc.png",
     "static/media/Card-1.png": "/diplom/static/media/Card-1.5be18e613249f5c4477e.png",
@@ -17,11 +17,11 @@
     "static/media/Location.png": "/diplom/static/media/Location.4c34b71b56ee9c1fc58b.png",
     "static/media/Message.png": "/diplom/static/media/Message.b2da15d605db69d83ee1.png",
     "index.html": "/diplom/index.html",
-    "main.783462e6.css.map": "/diplom/static/css/main.783462e6.css.map",
-    "main.66c451a2.js.map": "/diplom/static/js/main.66c451a2.js.map"
+    "main.83a64f22.css.map": "/diplom/static/css/main.83a64f22.css.map",
+    "main.accb1e46.js.map": "/diplom/static/js/main.accb1e46.js.map"
   },
   "entrypoints": [
-    "static/css/main.783462e6.css",
-    "static/js/main.66c451a2.js"
+    "static/css/main.83a64f22.css",
+    "static/js/main.accb1e46.js"
   ]
 }
