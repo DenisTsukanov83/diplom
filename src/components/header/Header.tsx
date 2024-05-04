@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Header.scss';
 import bg from '../../assets/img/header/main-bg.jpeg';
 import HeaderMenu from '../headerMenu/HeaderMenu';
 
+import { Context } from '../../App';
+
+
+
 function Header() {
+    const {numberOfBasket} = useContext<any>(Context);
+
     return (
         <header className="header">
-            <HeaderMenu/>
+            <HeaderMenu numberOfBasket={numberOfBasket}/>
 
             <div className="header-main">
                 <div className="header-main-bg">

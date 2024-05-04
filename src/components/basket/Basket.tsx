@@ -14,11 +14,11 @@ import { Context } from '../../App';
 
 
 const Basket: FC = () => {
-    const {basketArr} = useContext<any>(Context)
+    const {basketArr, numberOfBasket} = useContext<any>(Context);
 
     return (
         <div className="basket">
-            <HeaderMenu />
+            <HeaderMenu numberOfBasket={numberOfBasket}/>
             <Dishes/>
             <div className="basket-header">
                 <Link to={'/'}>
@@ -28,7 +28,7 @@ const Basket: FC = () => {
                 </Link>
                 <div className="basket-header-title">
                     <h2>Корзина</h2>
-                    <span>(в корзине 3 товара)</span>
+                    <span>{`в корзине ${numberOfBasket} товара`}</span>
                 </div>
             </div>
             <div className="basket-list">

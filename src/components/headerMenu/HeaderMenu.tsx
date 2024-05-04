@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './HeaderMenu.scss';
 
 import { Link } from 'react-router-dom';
@@ -6,8 +6,11 @@ import location from '../../assets/img/header/Location.png';
 import search from '../../assets/img/header/Search.png';
 import calling from '../../assets/img/header/Calling.png';
 
+interface HeaderMenuProps {
+    numberOfBasket: number;
+}
 
-function HeaderMenu() {
+const HeaderMenu: FC<HeaderMenuProps> = ({numberOfBasket}) => {
     return (
         <div className="header-menu">
         <div className="header-logo">
@@ -42,7 +45,7 @@ function HeaderMenu() {
         <Link to={'/basket'}>
             <div className="header-basket">
                 <div className="header-basket-title">Корзина</div>
-                <div className="header-basket-number">4</div>
+                <div className="header-basket-number">{numberOfBasket}</div>
             </div>
         </Link>
     </div>

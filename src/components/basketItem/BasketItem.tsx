@@ -1,14 +1,18 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import './BasketItem.scss';
 
 import minus from '../../assets/img/basket/minus.png';
 import plus from '../../assets/img/basket/plus.png';
+
+import { Context } from '../../App';
 
 interface BasketItemProps {
     data: any;
 }
 
 const BasketItem: FC<BasketItemProps> = ({data}) => {
+    const {onAddBasketArr} = useContext<any>(Context);
+
     return (
         <div className="basketItem">
             <div className="basketItem-img">
@@ -26,9 +30,9 @@ const BasketItem: FC<BasketItemProps> = ({data}) => {
                 <button className="basketItem-number-minus">
                     <img src={minus} alt="minus.png" />
                 </button>
-                <div className="basketItem-number-result">1</div>
-                <button className="basketItem-number-plus">
-                    <img src={plus} alt="plus.png" />
+                <div className="basketItem-number-result">{data.number}</div>
+                <button className="basketItem-number-plus" onClick={onAddBasketArr} data-card={JSON.stringify({type: data.obj.type, name: data.obj.name})}>
+                    <img src={plus} alt="plus.png"/>
                 </button>
             </div>
             <div className="basketItem-price">{data.obj.price} ₽</div>
