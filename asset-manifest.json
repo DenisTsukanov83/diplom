@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/diplom/static/css/main.83a64f22.css",
-    "main.js": "/diplom/static/js/main.accb1e46.js",
+    "main.css": "/diplom/static/css/main.e8c22797.css",
+    "main.js": "/diplom/static/js/main.c8d22bbd.js",
     "static/media/main-bg.jpeg": "/diplom/static/media/main-bg.3aea16c2ab84af21efb6.jpeg",
     "static/media/about-bg.png": "/diplom/static/media/about-bg.4bded7717ae161118acc.png",
     "static/media/Card-1.png": "/diplom/static/media/Card-1.5be18e613249f5c4477e.png",
@@ -15,13 +15,16 @@
     "static/media/Greenwich-Bold.woff2": "/diplom/static/media/Greenwich-Bold.557639e54d51389d0252.woff2",
     "static/media/arrow_btn.png": "/diplom/static/media/arrow_btn.98278a1dd624d0e75579.png",
     "static/media/Location.png": "/diplom/static/media/Location.4c34b71b56ee9c1fc58b.png",
+    "static/media/revicons.eot": "/diplom/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/diplom/static/media/revicons.57fd05d4ae650374c8de.ttf",
     "static/media/Message.png": "/diplom/static/media/Message.b2da15d605db69d83ee1.png",
+    "static/media/revicons.woff": "/diplom/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/diplom/index.html",
-    "main.83a64f22.css.map": "/diplom/static/css/main.83a64f22.css.map",
-    "main.accb1e46.js.map": "/diplom/static/js/main.accb1e46.js.map"
+    "main.e8c22797.css.map": "/diplom/static/css/main.e8c22797.css.map",
+    "main.c8d22bbd.js.map": "/diplom/static/js/main.c8d22bbd.js.map"
   },
   "entrypoints": [
-    "static/css/main.83a64f22.css",
-    "static/js/main.accb1e46.js"
+    "static/css/main.e8c22797.css",
+    "static/js/main.c8d22bbd.js"
   ]
 }
