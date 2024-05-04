@@ -1,5 +1,6 @@
-export const data = {
-	coldSnacks: [
+import { dataType } from "./types/DataType"
+export const data: dataType = {
+	'coldSnacks': [
 		{
 			name: 'Баклажаны с орехами',
 			type: 'Холдные закуски',
@@ -65,7 +66,7 @@ export const data = {
 			price: 460
 		}
 	],
-	hotSnacks: [
+	'hotSnacks': [
 		{
 			name: 'Аджабсандал',
 			type: 'Горячие закуски',
@@ -123,7 +124,7 @@ export const data = {
 			price: 490
 		},
 	],
-	hotDishes: [
+	'hotDishes': [
 		{
 			name: 'Оджахури со свининой',
 			type: 'Горячие блюда',
@@ -181,7 +182,7 @@ export const data = {
 			price: 490
 		}
 	],
-	soups: [
+	'soups': [
 		{
 			name: 'Куриный бульон с куриной лапшой',
 			type: 'Супы',
@@ -231,7 +232,7 @@ export const data = {
 			price: 540
 		},
 	],
-	sideDishes: [
+	'sideDishes': [
 		{
 			name: 'Запеченый картофель',
 			type: 'Гарниры',
@@ -273,7 +274,7 @@ export const data = {
 			price: 260
 		},
 	],
-	grillMenu: [
+	'grillMenu': [
 		{
 			name: 'Ассорти из шашлыков на 4 персоны',
 			type: 'Гриль меню',
@@ -339,7 +340,7 @@ export const data = {
 			price: 1990
 		},
 	],
-	childMenu: [
+	'childMenu': [
 		{
 			name: 'Детский куриный бульон с алфавитом',
 			type: 'Детское меню',
@@ -405,7 +406,7 @@ export const data = {
 			price: 200
 		},
 	],
-	drinks: [
+	'drinks': [
 		{
 			name: 'Кроненбург блан б/а',
 			type: 'Напитки',

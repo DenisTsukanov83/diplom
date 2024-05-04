@@ -1,23 +1,25 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './BasketItem.scss';
 
-import basketImg from '../../assets/img/Card/Card-1.png';
 import minus from '../../assets/img/basket/minus.png';
 import plus from '../../assets/img/basket/plus.png';
 
+interface BasketItemProps {
+    data: any;
+}
 
-function BasketItem() {
+const BasketItem: FC<BasketItemProps> = ({data}) => {
     return (
         <div className="basketItem">
             <div className="basketItem-img">
-                <img src={basketImg} alt="Card-1.png" />
+                <img src={data.obj.img} alt="Card-1.png" />
             </div>
             <div className="basketItem-text">
                 <div className="basketItem-text-title">
-                    Пицца двойная пепперони
+                    {data.obj.name}
                 </div>
                 <div>
-                    Кальмары, мидии, креветки, сыр маасдам, красный лук, микс оливок, базилик, соус песто
+                    {data.obj.text}
                 </div>
             </div>
             <div className="basketItem-number">
@@ -29,7 +31,7 @@ function BasketItem() {
                     <img src={plus} alt="plus.png" />
                 </button>
             </div>
-            <div className="basketItem-price">1640 ₽</div>
+            <div className="basketItem-price">{data.obj.price} ₽</div>
             <button className="basketItem-delete">
                 <img src={plus} alt="plus.png" />
             </button>

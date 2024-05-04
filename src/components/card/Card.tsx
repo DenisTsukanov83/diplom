@@ -1,10 +1,9 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useContext} from 'react';
 import './Card.scss';
 
-
-
-import Photo from '../../assets/img/Card/Card-1.png';
 import Buy from '../../assets/img/Card/Buy.png';
+
+import { Context } from '../../App';
 
 interface CardProps {
     data: any
@@ -12,6 +11,7 @@ interface CardProps {
 
 
 const Card: FC<CardProps> = ({data}) => {
+    const {onAddBasketArr} = useContext<any>(Context);
 
     return (
         <div className="card">
@@ -30,7 +30,10 @@ const Card: FC<CardProps> = ({data}) => {
                 {/* Switch!!! */}
                 <div className="card-footer">
                     <div className="card-price">{data.price} ₽</div>
-                    <button className="btn card-btn-basket">
+                    <button 
+                        className="btn card-btn-basket" 
+                        data-card={JSON.stringify({type: data.type, name: data.name})}
+                        onClick={onAddBasketArr}>
                         <div>В корзину</div>
                         <div>
                             <img src={Buy} alt="Buy.png" />

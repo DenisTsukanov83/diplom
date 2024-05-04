@@ -44,7 +44,7 @@ const Slider: FC = () => {
                             <Card key={i} data={el} />
                         )
                     })}
-                </Carousel>;
+                </Carousel>
             </div>
 
         </div>

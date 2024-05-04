@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import './Basket.scss';
 import { Link } from 'react-router-dom';
 
@@ -8,10 +8,13 @@ import BasketItem from '../basketItem/BasketItem';
 import BasketAddItem from '../basketAddItem/BasketAddItem';
 import Footer from '../footer/Footer';
 
+import { Context } from '../../App';
+
 
 
 
 const Basket: FC = () => {
+    const {basketArr} = useContext<any>(Context)
 
     return (
         <div className="basket">
@@ -30,10 +33,9 @@ const Basket: FC = () => {
             </div>
             <div className="basket-list">
                 <div className="basket-list-wrapper">
-                    <BasketItem />
-                    <BasketItem />
-                    <BasketItem />
-                    <BasketItem />
+                    {basketArr.map((el: any, i: number) => {
+                        return <BasketItem key={i} data={el} />
+                    })}
                 </div>
 
             </div>
