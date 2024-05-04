@@ -12,9 +12,6 @@ interface CardProps {
 
 
 const Card: FC<CardProps> = ({data}) => {
-    
-    
-    
 
     return (
         <div className="card">

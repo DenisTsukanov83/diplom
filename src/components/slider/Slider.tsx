@@ -8,8 +8,12 @@ import Card from '../card/Card';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
+interface SliderProps {
+    data: any;
+}
 
-const Slider: FC = () => {
+
+const Slider: FC<SliderProps> = ({data}) => {
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -29,7 +33,7 @@ const Slider: FC = () => {
     };
 
 
-    const { data } = useContext<any>(Context);
+    /* const { data } = useContext<any>(Context); */
 
 
     return (
@@ -42,7 +46,7 @@ const Slider: FC = () => {
                     keyBoardControl={true}
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     centerMode={true}>
-                    {data.coldSnacks.map((el: any, i: number) => {
+                    {data.map((el: any, i: number) => {
                         return <div>
                             <Card key={i} data={el} />
                         </div>

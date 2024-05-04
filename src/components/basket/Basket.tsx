@@ -13,7 +13,11 @@ function Basket() {
     return (
         <div className="basket">
             <HeaderMenu />
-            <Dishes />
+            <Dishes 
+                onChangeDishes={function (e: React.MouseEvent<HTMLElement, MouseEvent>): void {
+                throw new Error('Function not implemented.');
+                } } 
+                changedDishes=''/>
             <div className="basket-header">
                 <Link to={'/'}>
                     <div className="basket-header-return">
