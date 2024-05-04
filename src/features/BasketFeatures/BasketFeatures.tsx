@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './BasketFeatures.scss';
 
 import Basket from '../../components/basket/Basket';
 
-function BasketFeatures() {
+
+const BasketFeatures: FC = () => {
     return (
         <div>
             <Basket/>

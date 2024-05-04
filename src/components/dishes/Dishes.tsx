@@ -1,23 +1,40 @@
-import React, {FC, MouseEvent} from 'react';
+import React, {FC, useContext} from 'react';
+import { Link } from 'react-router-dom';
 import './Dishes.scss';
 
-interface dishesProps {
-    onChangeDishes: (e: MouseEvent<HTMLElement>) => void;
-    changedDishes: string;
-}
+import { Context } from "../../App";
 
-const Dishes: FC<dishesProps> = ({onChangeDishes, changedDishes}) => {
+
+
+const Dishes: FC = () => {
+    const { onChangeDishes, changedDishes, } = useContext<any>(Context);
     return (
         <nav className='cards-menu'>
             <ul onClick={onChangeDishes}>
-                <li className={changedDishes === 'Холодные закуски' ? 'li-changed' : ''}>Холодные закуски</li>
-                <li className={changedDishes === 'Горячие закуски' ? 'li-changed' : ''}>Горячие закуски</li>
-                <li className={changedDishes === 'Горячие блюда' ? 'li-changed' : ''}>Горячие блюда</li>
-                <li className={changedDishes === 'Супы' ? 'li-changed' : ''}>Супы</li>
-                <li className={changedDishes === 'Гарниры' ? 'li-changed' : ''}>Гарниры</li>
-                <li className={changedDishes === 'Гриль меню' ? 'li-changed' : ''}>Гриль меню</li>
-                <li className={changedDishes === 'Детское меню' ? 'li-changed' : ''}>Детское меню</li>
-                <li className={changedDishes === 'Напитки' ? 'li-changed' : ''}>Напитки</li>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Холодные закуски' ? 'li-changed' : ''}>Холодные закуски</li>
+                </Link>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Горячие закуски' ? 'li-changed' : ''}>Горячие закуски</li>
+                </Link>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Горячие блюда' ? 'li-changed' : ''}>Горячие блюда</li>
+                </Link>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Супы' ? 'li-changed' : ''}>Супы</li>
+                </Link>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Гарниры' ? 'li-changed' : ''}>Гарниры</li>
+                </Link>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Гриль меню' ? 'li-changed' : ''}>Гриль меню</li>
+                </Link>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Детское меню' ? 'li-changed' : ''}>Детское меню</li>
+                </Link>
+                <Link to={'/'}>
+                    <li className={changedDishes === 'Напитки' ? 'li-changed' : ''}>Напитки</li>
+                </Link>
             </ul>
         </nav>
     );

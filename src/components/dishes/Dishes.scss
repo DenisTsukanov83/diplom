@@ -13,6 +13,10 @@
         border-bottom: rem(1px) solid rgb(153, 152, 152);
         width: 100%;
         height: rem(78px);
+
+        & a {
+            text-decoration: none;
+        }
     
         & li {
             color: rgb(153, 152, 152);

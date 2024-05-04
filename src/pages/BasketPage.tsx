@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import BasketFeatures from '../features/BasketFeatures/BasketFeatures';
 
-function BasketPage() {
+const BasketPage: FC = () => {
     return (
         <div className="app">
             <BasketFeatures/>

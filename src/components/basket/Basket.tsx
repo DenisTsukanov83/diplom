@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './Basket.scss';
 import { Link } from 'react-router-dom';
 
@@ -9,15 +9,14 @@ import BasketAddItem from '../basketAddItem/BasketAddItem';
 import Footer from '../footer/Footer';
 
 
-function Basket() {
+
+
+const Basket: FC = () => {
+
     return (
         <div className="basket">
             <HeaderMenu />
-            <Dishes 
-                onChangeDishes={function (e: React.MouseEvent<HTMLElement, MouseEvent>): void {
-                throw new Error('Function not implemented.');
-                } } 
-                changedDishes=''/>
+            <Dishes/>
             <div className="basket-header">
                 <Link to={'/'}>
                     <div className="basket-header-return">

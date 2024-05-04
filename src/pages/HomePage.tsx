@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import HomeFeatures from '../features/HomeFeatures/HomeFeatures';
 
-function HomePage() {
+
+const HomePage: FC = () => {
     return (
         <div className="app">
             <HomeFeatures/>

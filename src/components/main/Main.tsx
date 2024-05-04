@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './Main.scss';
 
 import Cards from '../cards/Cards';
 import About from '../about/About';
 
-
-function Main() {
+const Main: FC= () => {
     return (
         <main className="main">
             <Cards/>

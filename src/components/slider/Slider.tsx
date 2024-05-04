@@ -1,19 +1,14 @@
-import React, { FC, MutableRefObject, useContext, useRef } from 'react';
-
+import React, { FC, useContext } from 'react';
 import './Slider.scss';
 
-import { Context } from "../../App";
 import Card from '../card/Card';
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-interface SliderProps {
-    data: any;
-}
+import { Context } from '../../App';
 
-
-const Slider: FC<SliderProps> = ({data}) => {
+const Slider: FC = () => {
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -32,9 +27,7 @@ const Slider: FC<SliderProps> = ({data}) => {
         }
     };
 
-
-    /* const { data } = useContext<any>(Context); */
-
+    const { chagedData } = useContext<any>(Context);
 
     return (
         <div>
@@ -46,11 +39,10 @@ const Slider: FC<SliderProps> = ({data}) => {
                     keyBoardControl={true}
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     centerMode={true}>
-                    {data.map((el: any, i: number) => {
-                        return <div>
+                    {chagedData.map((el: any, i: number) => {
+                        return (
                             <Card key={i} data={el} />
-                        </div>
-
+                        )
                     })}
                 </Carousel>;
             </div>
