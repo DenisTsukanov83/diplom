@@ -9,10 +9,12 @@
     background-color: $main-color-2;
     overflow: hidden;
     border-radius: rem(10px);
+    margin: auto;
+    cursor: pointer;
 
     &-img {
         width: 100%;
-
+        height: rem(227px);
     }
 
     &-content {
@@ -37,7 +39,9 @@
     &-text {
         font-size: rem(13px);
         width: 90%;
+        height: rem(45px);
         margin-top: rem(8px);
+        overflow: hidden;
     }
 
     &-footer {
