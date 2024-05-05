@@ -21,7 +21,7 @@ const Basket: FC = () => {
             <HeaderMenu numberOfBasket={numberOfBasket}/>
             <Dishes/>
             <div className="basket-header">
-                <Link to={'/'}>
+                <Link to={'/diplom'} className="no-underline">
                     <div className="basket-header-return">
                         &lt; к выбору блюда
                     </div>

@@ -4,7 +4,7 @@
 .basketItem {
     display: flex;
     background: linear-gradient(90deg, #494544, #504B4A);
-    padding: rem(20px) rem(42px) rem(20px) rem(19px);
+    padding: rem(20px) rem(50px) rem(20px) rem(19px);
     border-bottom: 1px solid rgb(153, 152, 152);
 
     &-img {
@@ -15,6 +15,7 @@
     &-text {
         margin-left: rem(45px);
         margin-top: rem(10px);
+        width: rem(508px);
 
         & div:first-child {
             font-family: Gilroy-Bold;
@@ -36,7 +37,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-left: rem(224px);
         margin-top: rem(2px);
         width: rem(91px);
         font-family: Gilroy-Normal;
@@ -75,7 +75,7 @@
         color: $white-color;
         margin-left: rem(135px);
         margin-top: rem(32px);
-        width: rem(100px);
+        width: rem(140px);
     }
 
     &-delete {
@@ -90,7 +90,6 @@
         cursor: pointer;
         padding: rem(7px) rem(7px);
         transform: rotate(45deg);
-        margin-left: rem(80px);
         margin-top: rem(30px);
     }
 }

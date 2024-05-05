@@ -11,7 +11,7 @@ interface BasketItemProps {
 }
 
 const BasketItem: FC<BasketItemProps> = ({data}) => {
-    const {onAddBasketArr} = useContext<any>(Context);
+    const {onAddBasketArr, onDeleteBasketArr} = useContext<any>(Context);
 
     return (
         <div className="basketItem">
@@ -27,7 +27,7 @@ const BasketItem: FC<BasketItemProps> = ({data}) => {
                 </div>
             </div>
             <div className="basketItem-number">
-                <button className="basketItem-number-minus">
+                <button className="basketItem-number-minus" onClick={onDeleteBasketArr} data-card={JSON.stringify({type: data.obj.type, name: data.obj.name})}>
                     <img src={minus} alt="minus.png" />
                 </button>
                 <div className="basketItem-number-result">{data.number}</div>
@@ -35,7 +35,7 @@ const BasketItem: FC<BasketItemProps> = ({data}) => {
                     <img src={plus} alt="plus.png"/>
                 </button>
             </div>
-            <div className="basketItem-price">{data.obj.price} ₽</div>
+            <div className="basketItem-price">{data.obj.price * data.number} ₽</div>
             <button className="basketItem-delete">
                 <img src={plus} alt="plus.png" />
             </button>

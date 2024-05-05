@@ -1,4 +1,4 @@
-import React, { FC, createContext, useState, MouseEvent } from 'react';
+import React, { FC, createContext, useState, MouseEvent, useEffect } from 'react';
 
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -8,6 +8,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { data } from './Data';
 
 import { dishType } from './types/dishType';
+import { BasketType } from './types/BasketType';
 const Context = createContext({});
 
 
@@ -44,32 +45,16 @@ const App: FC = () => {
 	}
 
 	function onAddBasketArr(e: MouseEvent<HTMLElement>) {
-		
 		const btn = (e.target as HTMLElement).closest('.card-btn-basket') ? (e.target as HTMLElement).closest('.card-btn-basket') : (e.target as HTMLElement).closest('.basketItem-number-plus');
-		console.log(btn)
 		const cardData = (btn as HTMLElement).dataset.card;
-		let obj: dishType = {
-			name: '',
-			type: '',
-			img: '',
-			text: '',
-			weight: 0,
-			price: 0
-		}
-		if (cardData) {
-			const str = JSON.parse(cardData)
-			for (let key in data) {
-				if (data[key][0].type === str.type) {
-					obj = data[key][data[key].findIndex(el => el.name === str.name)];
-				}
-			}
+		if(cardData) {
+			const str = JSON.parse(cardData);
 			const index = basketArr.findIndex(el => el.obj.name === str.name);
 			if (index >= 0) {
-				console.log(true)
 				const newObj = basketArr[index];
 				newObj.number += 1;
 				const newArr = basketArr.map(el => {
-					if(el.obj.name === str.name) {
+					if (el.obj.name === str.name) {
 						return newObj
 					} else {
 						return el;
@@ -77,31 +62,68 @@ const App: FC = () => {
 				});
 				setBasketArr(newArr);
 			} else {
-				console.log(false)
+				let obj: dishType = {name: '', type: '', img: '', text: '', weight: 0, price: 0};
+				for (let key in data) {
+					if (data[key][0].type === str.type) {
+						obj = data[key][data[key].findIndex(el => el.name === str.name)];
+					}
+				}
 				const newArr = [...basketArr, {
 					number: 1,
 					obj: obj
 				}];
 				setBasketArr(newArr);
 			}
-
 		}
-		let number = 1;
-		basketArr.forEach((el: any) => {
-			number += el.number;
-		});
-		setNumberOfBasket(number);
-
 	}
+
+	function onDeleteBasketArr(e: MouseEvent<HTMLElement>) {
+		const btn = (e.target as HTMLElement).closest('.basketItem-number-minus');
+		const cardData = (btn as HTMLElement).dataset.card;
+		if (cardData) {
+			const str = JSON.parse(cardData);
+			if (basketArr.length) {
+				let newArr: BasketType[] = [];
+				basketArr.forEach(el => {
+					if (el.obj.name === str.name) {
+						const obj = el;
+						if (el.number > 1) {
+							obj.number = el.number - 1;
+							newArr.push(obj);
+							setBasketArr(newArr);
+						} else {
+							newArr.push(el);
+							setBasketArr(newArr);
+						}
+					} else {
+						newArr.push(el);
+						setBasketArr(newArr);
+					}
+				});
+			}
+		}
+	}
+
+	function changeNumberOfBasket() {
+		let count = 0;
+		basketArr.forEach((el: any) => {
+			count += el.number;
+		});
+		setNumberOfBasket(count);
+	}
+
+	useEffect(() => {
+		changeNumberOfBasket()
+	});
 
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onAddBasketArr, numberOfBasket }}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onAddBasketArr, numberOfBasket, onDeleteBasketArr }}>
 					<Routes>
-						<Route path='*' element={<HomePage />} />
+						<Route path='/diplom' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
-						{/* <Route path='*' element={<NotFoundPage/>}/> */}
+						<Route path='*' element={<NotFoundPage />} />
 					</Routes>
 				</Context.Provider>
 			</div>

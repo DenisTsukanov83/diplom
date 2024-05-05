@@ -42,7 +42,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({numberOfBasket}) => {
                 <div className="header-contact-number">+7 (917) 510-57-59</div>
             </div>
         </div>
-        <Link to={'/basket'}>
+        <Link to={'/basket'} className="no-underline">
             <div className="header-basket">
                 <div className="header-basket-title">Корзина</div>
                 <div className="header-basket-number">{numberOfBasket}</div>
