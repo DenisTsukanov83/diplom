@@ -73,7 +73,7 @@ const Basket: FC = () => {
             </div>
             <Dishes />
             <div className="basket-header">
-                <Link to={'/diplom'} className="no-underline">
+                <Link to={'/diplom/:block?'} className="no-underline">
                     <div className="basket-header-return">
                         &lt; к выбору блюда
                     </div>

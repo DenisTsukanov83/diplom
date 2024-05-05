@@ -47,7 +47,7 @@ const App: FC = () => {
 	function onIncreaseBasketArr(e: MouseEvent<HTMLElement>) {
 		const btn = (e.target as HTMLElement).closest('.card-btn-basket') ? (e.target as HTMLElement).closest('.card-btn-basket') : (e.target as HTMLElement).closest('.basketItem-number-plus');
 		const cardData = (btn as HTMLElement).dataset.card;
-		if(cardData) {
+		if (cardData) {
 			const str = JSON.parse(cardData);
 			const index = basketArr.findIndex(el => el.obj.name === str.name);
 			if (index >= 0) {
@@ -62,7 +62,7 @@ const App: FC = () => {
 				});
 				setBasketArr(newArr);
 			} else {
-				let obj: dishType = {name: '', type: '', img: '', text: '', weight: 0, price: 0};
+				let obj: dishType = { name: '', type: '', img: '', text: '', weight: 0, price: 0 };
 				for (let key in data) {
 					if (data[key][0].type === str.type) {
 						obj = data[key][data[key].findIndex(el => el.name === str.name)];
@@ -80,7 +80,7 @@ const App: FC = () => {
 	function onDecreaseBasketArr(e: MouseEvent<HTMLElement>) {
 		const btn = (e.target as HTMLElement).closest('.basketItem-number-minus');
 		const cardData = (btn as HTMLElement).dataset.card;
-		if(cardData) {
+		if (cardData) {
 			const str = JSON.parse(cardData);
 			if (basketArr.length) {
 				let newArr: BasketType[] = [];
@@ -115,7 +115,7 @@ const App: FC = () => {
 	function onDeleteDish(e: MouseEvent<HTMLElement>) {
 		const btn = (e.target as HTMLElement).closest('.basketItem-delete');
 		const cardData = (btn as HTMLElement).dataset.card;
-		if(cardData) {
+		if (cardData) {
 			const str = JSON.parse(cardData);
 			const newArr = basketArr.filter(el => el.obj.name !== str.name);
 			setBasketArr(newArr);
@@ -131,7 +131,7 @@ const App: FC = () => {
 			<div className='wrap'>
 				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish }}>
 					<Routes>
-						<Route path='/diplom' element={<HomePage />} />
+						<Route path='/diplom/:block?' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
 						<Route path='*' element={<NotFoundPage />} />
 					</Routes>
