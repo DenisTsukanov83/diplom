@@ -11,7 +11,7 @@ interface CardProps {
 
 
 const Card: FC<CardProps> = ({data}) => {
-    const {onAddBasketArr} = useContext<any>(Context);
+    const {onIncreaseBasketArr} = useContext<any>(Context);
 
     return (
         <div className="card">
@@ -33,7 +33,7 @@ const Card: FC<CardProps> = ({data}) => {
                     <button 
                         className="btn card-btn-basket" 
                         data-card={JSON.stringify({type: data.type, name: data.name})}
-                        onClick={onAddBasketArr}>
+                        onClick={onIncreaseBasketArr}>
                         <div>В корзину</div>
                         <div>
                             <img src={Buy} alt="Buy.png" />

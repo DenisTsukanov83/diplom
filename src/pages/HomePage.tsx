@@ -5,7 +5,7 @@ import HomeFeatures from '../features/HomeFeatures/HomeFeatures';
 
 const HomePage: FC = () => {
     return (
-        <div className="app">
+        <div className="container">
             <HomeFeatures/>
         </div>
     );

@@ -13,7 +13,7 @@
     background-size: contain;
     margin-top: rem(93px);
     font-family: Gilroy-Normal;
-    padding: rem(71px) rem(95px) rem(71px) rem(70px);
+    padding: rem(71px) rem(62px) rem(71px) rem(73px);
     color: $white-color;
     position: relative;
     z-index: 2;
@@ -25,18 +25,18 @@
             font-size: rem(32px);
             text-transform: uppercase;
             margin-top: rem(30px);
-            width: rem(725px);
+            width: rem(600px);
         }
 
         & p {
-            font-size: rem(20px);
-            line-height: rem(25px);
-            width: rem(560px);
-            margin-top: rem(28px);
+            font-size: rem(20.5px);
+            line-height: rem(26px);
+            width: rem(575px);
+            margin-top: rem(30px);
         }
 
         & button {
-            width: rem(223px);
+            width: rem(230px);
             height: rem(59px);
             border-radius: rem(10px);
             border: rem(1px) solid $white-color;
@@ -50,13 +50,14 @@
     }
 
     &-menu {
-        display: flex;
-        flex-wrap: wrap;
-        gap: rem(15px);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 25px;
 
         &-card {
-            width: rem(228px);
-            height: rem(227px);
+            width: rem(234px);
+            height: rem(233px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,7 +70,7 @@
 
             & div:last-child {
                 font-size: rem(18px);
-                margin-top: rem(27px);
+                margin-top: rem(30px);
             }
         }
     }

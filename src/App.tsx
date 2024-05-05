@@ -44,7 +44,7 @@ const App: FC = () => {
 		}
 	}
 
-	function onAddBasketArr(e: MouseEvent<HTMLElement>) {
+	function onIncreaseBasketArr(e: MouseEvent<HTMLElement>) {
 		const btn = (e.target as HTMLElement).closest('.card-btn-basket') ? (e.target as HTMLElement).closest('.card-btn-basket') : (e.target as HTMLElement).closest('.basketItem-number-plus');
 		const cardData = (btn as HTMLElement).dataset.card;
 		if(cardData) {
@@ -77,10 +77,10 @@ const App: FC = () => {
 		}
 	}
 
-	function onDeleteBasketArr(e: MouseEvent<HTMLElement>) {
+	function onDecreaseBasketArr(e: MouseEvent<HTMLElement>) {
 		const btn = (e.target as HTMLElement).closest('.basketItem-number-minus');
 		const cardData = (btn as HTMLElement).dataset.card;
-		if (cardData) {
+		if(cardData) {
 			const str = JSON.parse(cardData);
 			if (basketArr.length) {
 				let newArr: BasketType[] = [];
@@ -112,6 +112,16 @@ const App: FC = () => {
 		setNumberOfBasket(count);
 	}
 
+	function onDeleteDish(e: MouseEvent<HTMLElement>) {
+		const btn = (e.target as HTMLElement).closest('.basketItem-delete');
+		const cardData = (btn as HTMLElement).dataset.card;
+		if(cardData) {
+			const str = JSON.parse(cardData);
+			const newArr = basketArr.filter(el => el.obj.name !== str.name);
+			setBasketArr(newArr);
+		}
+	}
+
 	useEffect(() => {
 		changeNumberOfBasket()
 	});
@@ -119,7 +129,7 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onAddBasketArr, numberOfBasket, onDeleteBasketArr }}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish }}>
 					<Routes>
 						<Route path='/diplom' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />

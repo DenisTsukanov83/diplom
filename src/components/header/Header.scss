@@ -2,18 +2,19 @@
 @import '../../variables.scss';
 
 .header {
-    background-color: $main-color;
+    background-color: #211F20;
     &-main {
-        width: rem(1440px);
-        height: rem(484px);
+        width: 100%;
+        height: rem(498px);
         overflow: hidden;
         position: relative;
+        margin: auto;
 
         &-bg {
             & img {
                 transform: rotate(-90deg) scale(0.61);
-                margin-top: rem(-623px);
-                margin-left: rem(170px);
+                margin-top: rem(-640px);
+                margin-left: rem(174px);
             }
         }
 
@@ -26,15 +27,17 @@
             width: rem(1102px);
             height: 100%;
             background: linear-gradient(90deg, #211F20, rgba(68, 64, 63, 1), transparent 85%);
-            padding: rem(118px) rem(100px);
+            padding: rem(120px) rem(102px);
 
             & h1 {
                 transform: rotate(-8.37deg);
-                width: rem(600px);
+                width: rem(620px);
                 text-align: center;
                 font-size: rem(67px);
                 line-height: rem(73.16px);
                 position: relative;
+                letter-spacing: rem(1px);
+                font-weight: 400;
             }
 
             & h1::before {
@@ -52,8 +55,8 @@
         &-subtitle {
             width: rem(210px);
             transform: skew(-16deg)  rotate(-8.37deg);
-            margin-left: rem(200px);
-            margin-top: rem(32px);
+            margin-left: rem(210px);
+            margin-top: rem(37px);
             background: $main-gradient-green;
             display: flex;
             align-items: center;

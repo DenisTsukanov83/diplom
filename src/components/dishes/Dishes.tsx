@@ -9,7 +9,7 @@ import { Context } from "../../App";
 const Dishes: FC = () => {
     const { onChangeDishes, changedDishes, } = useContext<any>(Context);
     return (
-        <nav className='cards-menu'>
+        <nav className='cards-menu' id='cardsMenu'>
             <ul onClick={onChangeDishes}>
                 <Link to={'/diplom'} className="no-underline">
                     <li className={changedDishes === 'Холодные закуски' ? 'li-changed' : ''}>Холодные закуски</li>

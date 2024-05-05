@@ -15,6 +15,11 @@ import { Context } from '../../App';
 
 const Basket: FC = () => {
     const {basketArr, numberOfBasket} = useContext<any>(Context);
+    let sum = 0;
+    basketArr.forEach((el: any) => {
+        sum += el.number * el.obj.price;
+    });
+
 
     return (
         <div className="basket">
@@ -53,7 +58,7 @@ const Basket: FC = () => {
                 <div className="basket-result-text">
                     <div>
                         <span>Итого:</span>
-                        <span> 500 ₽</span>
+                        <span> {sum} ₽</span>
                     </div>
                     <div>
                         <span>До бесплатной доставки не хватет:</span>
