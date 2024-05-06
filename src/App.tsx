@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import BasketPage from './pages/BasketPage';
 import NotFoundPage from './pages/NotFoundPage';
+import OrderPage from './pages/OrderPage';
 
 import { data } from './Data';
 
@@ -132,8 +133,9 @@ const App: FC = () => {
 				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish }}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
-						<Route path='/basket' element={<BasketPage />} />
-						<Route path='*' element={<NotFoundPage />} />
+						<Route path='/basket' element={<BasketPage />}/>
+						<Route path='/order' element={<OrderPage/>}/>
+						{/* <Route path='*' element={<NotFoundPage />} /> */}
 					</Routes>
 				</Context.Provider>
 			</div>

@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import './Card.scss';
 
@@ -10,7 +10,6 @@ interface CardProps {
     data: any,
     numberOfDishes: number;
 }
-
 
 const Card: FC<CardProps> = ({ data, numberOfDishes }) => {
     const { onIncreaseBasketArr } = useContext<any>(Context);

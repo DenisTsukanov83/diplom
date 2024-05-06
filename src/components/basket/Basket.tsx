@@ -124,9 +124,12 @@ const Basket: FC = () => {
                     {getDelivery(sum)}
                     <div>Минимальная сума заказа 1500 ₽</div>
                 </div>
-                <button className="basket-result-btn">
-                    Оформить заказ
-                </button>
+                <Link to={'/order'} className='no-underline'>
+                    <button className="basket-result-btn">
+                        Оформить заказ
+                    </button>
+                </Link>
+
             </div>
             <Footer />
         </div>

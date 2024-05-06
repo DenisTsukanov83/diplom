@@ -2,7 +2,7 @@
 @import '../../variables.scss';
 
 .basket {
-    background-color: $main-color;
+    background: linear-gradient(0deg, rgba(33, 31, 32, 1), rgba(68, 64, 63, 1));
     &-menu {
         width: 100%;
         display: flex;
@@ -278,6 +278,7 @@
             font-size: rem(14px);
             font-family: Gilroy-Bold;
             color: $white-color;
+            cursor: pointer;
         }
     }
 
