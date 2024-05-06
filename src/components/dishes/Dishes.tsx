@@ -1,5 +1,5 @@
-import React, { FC, useContext, useRef, useEffect, MutableRefObject, RefObject } from 'react';
-import { Link, Params, useParams } from 'react-router-dom';
+import { FC, useContext, useRef, useEffect, MutableRefObject, } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import './Dishes.scss';
 
 import { Context } from "../../App";
@@ -9,7 +9,6 @@ import { Context } from "../../App";
 const Dishes: FC = () => {
     const { onChangeDishes, changedDishes, } = useContext<any>(Context);
     const params = useParams();
-    console.log(params)
     const block: MutableRefObject<HTMLElement | null> = useRef(null);
 
     const scrollToBlock = () => {
@@ -22,6 +21,7 @@ const Dishes: FC = () => {
     };
     useEffect(() => {
         scrollToBlock();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
     return (
         <nav className='cards-menu' ref={block}>

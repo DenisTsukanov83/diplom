@@ -1,4 +1,5 @@
-import React, {FC, useContext} from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Card.scss';
 
 import Buy from '../../assets/img/Card/Buy.png';
@@ -6,12 +7,15 @@ import Buy from '../../assets/img/Card/Buy.png';
 import { Context } from '../../App';
 
 interface CardProps {
-    data: any
+    data: any,
+    numberOfDishes: number;
 }
 
 
-const Card: FC<CardProps> = ({data}) => {
-    const {onIncreaseBasketArr} = useContext<any>(Context);
+const Card: FC<CardProps> = ({ data, numberOfDishes }) => {
+    const { onIncreaseBasketArr } = useContext<any>(Context);
+
+    console.log(numberOfDishes)
 
     return (
         <div className="card">
@@ -30,9 +34,9 @@ const Card: FC<CardProps> = ({data}) => {
                 {/* Switch!!! */}
                 <div className="card-footer">
                     <div className="card-price">{data.price} ₽</div>
-                    <button 
-                        className="btn card-btn-basket" 
-                        data-card={JSON.stringify({type: data.type, name: data.name})}
+                    <button
+                        className="btn card-btn-basket"
+                        data-card={JSON.stringify({ type: data.type, name: data.name })}
                         onClick={onIncreaseBasketArr}>
                         <div>В корзину</div>
                         <div>
@@ -51,6 +55,11 @@ const Card: FC<CardProps> = ({data}) => {
                     </button>
                 </div> */}
             </div>
+            <Link to={'/basket'} className="no-underline">
+                <div className="card-round" style={{ display: numberOfDishes > 0 ? 'flex' : 'none' }}>
+                    {numberOfDishes}
+                </div>
+            </Link>
         </div>
     );
 }

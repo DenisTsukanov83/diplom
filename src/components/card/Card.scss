@@ -7,7 +7,6 @@
     font-family: Gilroy-Normal;
     color: $white-color;
     background-color: $main-color-2;
-    overflow: hidden;
     border-radius: rem(10px);
     margin: auto;
     cursor: pointer;
@@ -15,6 +14,9 @@
     &-img {
         width: 100%;
         height: rem(227px);
+        border-top-left-radius: rem(10px);
+        border-top-right-radius: rem(10px);
+        overflow: hidden;
     }
 
     &-content {
@@ -119,6 +121,21 @@
         }
     }
 
+    &-round {
+        position: absolute;
+        top: rem(-7px);
+        right: rem(9px);
+        border-radius: 50%;
+        height: rem(50px);
+        width: rem(50px);
+        background-color: $main-color-green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-family: Gilroy-Bold;
+        font-size: rem(20px);
+    }
 }
 
 .btn {

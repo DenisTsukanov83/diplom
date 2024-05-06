@@ -27,7 +27,8 @@ const Slider: FC = () => {
         }
     };
 
-    const { chagedData } = useContext<any>(Context);
+    const { chagedData, basketArr } = useContext<any>(Context);
+    
 
     return (
         <div>
@@ -40,8 +41,13 @@ const Slider: FC = () => {
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     centerMode={true}>
                     {chagedData.map((el: any, i: number) => {
+                        const index = basketArr.findIndex((elObj : any) => elObj.obj.name === el.name);
+                        let number = 0;
+                        if(index >= 0) {
+                            number = basketArr[index].number;
+                        }
                         return (
-                            <Card key={i} data={el} />
+                            <Card key={i} data={el} numberOfDishes={number}/>
                         )
                     })}
                 </Carousel>

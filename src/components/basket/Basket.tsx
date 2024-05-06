@@ -15,8 +15,6 @@ import profile from '../../assets/img/basket/Profile.png';
 import { Context } from '../../App';
 
 
-
-
 const Basket: FC = () => {
     const { basketArr, numberOfBasket } = useContext<any>(Context);
     let sum = 0;
@@ -24,6 +22,22 @@ const Basket: FC = () => {
         sum += el.number * el.obj.price;
     });
 
+    function getDelivery(sum: number) {
+        if (sum < 1500) {
+            return (
+                <div>
+                    <span>До бесплатной доставки не хватет:</span>
+                    <span> {1500 - sum} ₽</span>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <span>Вам доступна бесплатная доставка</span>
+                </div>
+            )
+        }
+    }
 
     return (
         <div className="basket">
@@ -107,10 +121,7 @@ const Basket: FC = () => {
                         <span>Итого:</span>
                         <span> {sum} ₽</span>
                     </div>
-                    <div>
-                        <span>До бесплатной доставки не хватет:</span>
-                        <span> 100 ₽</span>
-                    </div>
+                    {getDelivery(sum)}
                     <div>Минимальная сума заказа 1500 ₽</div>
                 </div>
                 <button className="basket-result-btn">
