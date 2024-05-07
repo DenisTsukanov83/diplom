@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, MouseEvent, useState, useEffect } from 'react';
 import './OrderFeatures.scss';
 
 import { Link } from 'react-router-dom';
@@ -14,10 +14,63 @@ import plus from '../../assets/img/order/plus.png';
 
 import Dishes from '../../components/dishes/Dishes';
 import Footer from '../../components/footer/Footer';
+import OrderButtons from '../../components/orderButtons/OrderButtons';
+
+import { forwardRef } from 'react';
+import { InputMask } from '@react-input/mask';
+import { strict } from 'assert';
 
 
 const OrderFeatures: FC = () => {
     const { numberOfBasket } = useContext<any>(Context);
+
+    interface CustomInputProps {
+        label: string;
+    }
+
+    // Custom input component
+    function myInput(placeholder: string) {
+        const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(({ label }, forwardedRef) => {
+            return (
+                <input ref={forwardedRef} id="custom-input" placeholder={placeholder} />
+            );
+        });
+        return CustomInput;
+    }
+
+    const modifyPhone = (input: string) => {
+        return { mask: input[0] === '7' ? '+7 (___) ___-__-__' : '+7 (___) ___-__-__' };
+    };
+
+    //---------------------------------------------------------------------------------------------
+
+    //Custom buttons
+    const [activeIndex1, setActiveIndex1] = useState(0);
+    const [activeIndex2, setActiveIndex2] = useState(0);
+    const [activeIndex3, setActiveIndex3] = useState(0);
+
+    /* const handleClick = (e: MouseEvent<HTMLElement>, func: React.Dispatch<React.SetStateAction<number>>, i: number) => {
+        e.preventDefault();
+        func(i);
+    }; */
+    useEffect(() => {
+        console.log(activeIndex1)
+        console.log(activeIndex2)
+        console.log(activeIndex3)
+    })
+
+    const handleClick = (e: MouseEvent<HTMLElement>, classNumber: number, index: number) => {
+        e.preventDefault();
+        switch(classNumber) {
+            case 1 : setActiveIndex1(index);
+            break;
+            case 2 : setActiveIndex2(index);
+            break;
+            case 3 : setActiveIndex3(index);
+            break;
+        }
+    };
+
 
     return (
         <div className="order">
@@ -86,7 +139,7 @@ const OrderFeatures: FC = () => {
                         </div>
                         <div className="order-form-1-wrapper">
                             <input type="text" placeholder='Имя' />
-                            <input type="phone" placeholder='Телефон' />
+                            <InputMask component={myInput('Телефон')} mask="+_ (___)-___-__-__" replacement="_" label="" modify={modifyPhone} />
                         </div>
                     </div>
                     <div className="order-form order-form-2">
@@ -95,8 +148,16 @@ const OrderFeatures: FC = () => {
                         </div>
                         <div className="order-form-2-wrapper">
                             <div className="order-form-choose">
-                                <button className='order-btn-active'>Доставка</button>
-                                <button>Самовывоз</button>
+                                {['Доставка', 'Самовывоз'].map((el, i) =>
+                                    <OrderButtons
+                                        key={i}
+                                        text={el}
+                                        handleClick={handleClick}
+                                        activeIndex={activeIndex1}
+                                        index={i}
+                                        classNumber={1}
+                                    />
+                                )}
                             </div>
                             <div className="order-form-2-wrapper-text">
                                 <div>
@@ -112,7 +173,7 @@ const OrderFeatures: FC = () => {
                         </div>
                         <div className="order-form-2-grid">
                             <input type="text" placeholder='Укажите улицу' />
-                            <input type="number" placeholder='Номер дома' />
+                            <input type="text" placeholder='Номер дома' />
                             <input type="number" placeholder='№ квартиры/офиса' />
                             <input type="number" placeholder='Подъезд' />
                             <input type="number" placeholder='Этаж' />
@@ -124,11 +185,18 @@ const OrderFeatures: FC = () => {
                             3. Оплатить
                         </div>
                         <div className="order-form-choose">
-                            <button>Оплата онлайн</button>
-                            <button>Курьеру картой</button>
-                            <button className='order-btn-active'>Наличными</button>
+                            {['Оплата онлайн', 'Курьеру картой', 'Наличными'].map((el, i) =>
+                                <OrderButtons
+                                    key={i}
+                                    text={el}
+                                    handleClick={handleClick}
+                                    activeIndex={activeIndex2}
+                                    index={i}
+                                    classNumber={2}
+                                />
+                            )}
                         </div>
-                        <input type="number" placeholder='Сдача с' />
+                        <InputMask component={myInput('Сдача с')} mask="____" replacement="_" label="Label for custom component" />
                     </div>
                     <div className="order-form order-form-4">
                         <div className="order-form-title">
@@ -136,8 +204,16 @@ const OrderFeatures: FC = () => {
                         </div>
                         <div className="order-form-4-wrapper">
                             <div className="order-form-choose">
-                                <button>В ближайшее время</button>
-                                <button className='order-btn-active'>Ко времени</button>
+                                {['В ближайшее время', 'Ко времени'].map((el, i) =>
+                                <OrderButtons
+                                    key={i}
+                                    text={el}
+                                    handleClick={handleClick}
+                                    activeIndex={activeIndex3}
+                                    index={i}
+                                    classNumber={3}
+                                />
+                            )}
                             </div>
                             <input type="text" placeholder='Укажите время' />
                         </div>
@@ -179,7 +255,7 @@ const OrderFeatures: FC = () => {
                                 Я согласен на обработку моих перс.данных в соответствии с
                             </span>
                             <a href="">
-                            &nbsp;Условиями
+                                &nbsp;Условиями
                             </a>
                         </div>
                         <div>
@@ -189,7 +265,7 @@ const OrderFeatures: FC = () => {
                 </form>
             </main>
             <footer>
-                <Footer/>
+                <Footer />
             </footer>
         </div>
     );

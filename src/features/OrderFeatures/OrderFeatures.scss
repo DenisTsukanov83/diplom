@@ -424,8 +424,8 @@
 
                 & input[type='radio'] {
                     position: relative;
-                    height: 22px;
-                    width: 22px;
+                    height: rem(22px);
+                    width: rem(22px);
                     -webkit-appearance: none;
                     -moz-appearance: none;
                     appearance: none;
