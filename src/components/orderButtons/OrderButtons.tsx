@@ -1,24 +1,19 @@
-import { FC, MouseEvent, useEffect, useState } from 'react';
+import { FC, MouseEvent} from 'react';
 
 interface OrderButtonsProps {
     text: string;
-    handleClick: (e: MouseEvent<HTMLElement>, classNumber: number, index: number) => void;
+    handleClick: (e: MouseEvent<HTMLElement>, index: number, classNumber: number) => void;
     activeIndex: number;
     index: number;
     classNumber: number;
+    dataSet: string;
 }
 
-const OrderButtons: FC<OrderButtonsProps> = ({ text, handleClick, activeIndex, index, classNumber}) => {
-    /* const isActive = activeIndex === index ? true : false; */
-    const [activeIndexLoc, setActiveIndexLoc] = useState(0);
+const OrderButtons: FC<OrderButtonsProps> = ({ text, handleClick, activeIndex, index, classNumber, dataSet}) => {
+    const isActive = activeIndex === index ? true : false; 
 
-    const isActive = activeIndexLoc === index ? true : false; 
-
-    useEffect(() => {
-        setActiveIndexLoc(activeIndex);
-    })
     return (
-        <button onClick={(e) => handleClick(e, classNumber, index)} className={` ${isActive ? 'order-btn-active' : ''}`}>
+        <button onClick={(e) => handleClick(e, index, classNumber)} className={` ${isActive ? 'order-btn-active' : ''}`} data-user={`${dataSet}`}>
             {text}
         </button>
     );

@@ -1,4 +1,4 @@
-import { FC, useContext, MouseEvent, useState, useEffect } from 'react';
+import { FC, useContext, MouseEvent, useState, useEffect, ChangeEvent } from 'react';
 import './OrderFeatures.scss';
 
 import { Link } from 'react-router-dom';
@@ -18,7 +18,8 @@ import OrderButtons from '../../components/orderButtons/OrderButtons';
 
 import { forwardRef } from 'react';
 import { InputMask } from '@react-input/mask';
-import { strict } from 'assert';
+
+import { UserDataType } from '../../types/UserDataType';
 
 
 const OrderFeatures: FC = () => {
@@ -29,17 +30,18 @@ const OrderFeatures: FC = () => {
     }
 
     // Custom input component
-    function myInput(placeholder: string) {
+    function myInput(placeholder: string, dataUser: string, handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void, val: string | number) {
+        console.log(val)
         const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(({ label }, forwardedRef) => {
             return (
-                <input ref={forwardedRef} id="custom-input" placeholder={placeholder} />
+                <input type="text"  ref={forwardedRef} /* id="custom-input" */ placeholder={placeholder} data-user={`${dataUser}`} onChange={handleChange} defaultValue={val}/>
             );
         });
         return CustomInput;
     }
 
     const modifyPhone = (input: string) => {
-        return { mask: input[0] === '7' ? '+7 (___) ___-__-__' : '+7 (___) ___-__-__' };
+        return { mask: input[0].length ? '+7 (___) ___-__-__' : '+7 (___) ___-__-__' };
     };
 
     //---------------------------------------------------------------------------------------------
@@ -49,28 +51,58 @@ const OrderFeatures: FC = () => {
     const [activeIndex2, setActiveIndex2] = useState(0);
     const [activeIndex3, setActiveIndex3] = useState(0);
 
-    /* const handleClick = (e: MouseEvent<HTMLElement>, func: React.Dispatch<React.SetStateAction<number>>, i: number) => {
+    const handleClick = (e: MouseEvent<HTMLElement>, index: number, classNumber: number) => {
         e.preventDefault();
-        func(i);
-    }; */
-    useEffect(() => {
-        console.log(activeIndex1)
-        console.log(activeIndex2)
-        console.log(activeIndex3)
-    })
-
-    const handleClick = (e: MouseEvent<HTMLElement>, classNumber: number, index: number) => {
-        e.preventDefault();
-        switch(classNumber) {
-            case 1 : setActiveIndex1(index);
-            break;
-            case 2 : setActiveIndex2(index);
-            break;
-            case 3 : setActiveIndex3(index);
-            break;
+        switch (classNumber) {
+            case 1: setActiveIndex1(index);
+                break;
+            case 2: setActiveIndex2(index);
+                break;
+            case 3: setActiveIndex3(index);
+                break;
         }
+
+        handleChange(e);
     };
 
+    //---------------------------------------------------------------------------------------------
+
+    //Add user obj
+    const [UserDataObj, setUserDataObj] = useState<UserDataType>({
+        'name': '',
+        'phone': '',
+        'delivery': '',
+        'street': '',
+        'houseNumber': '',
+        'apartmentNumber': '',
+        'entranceNumber': '',
+        'floorNumber': '',
+        'comment': '',
+        'payType': '',
+        'changeFrom': '',
+        'whatTime': '',
+        'persons': '',
+        'callBack': false,
+    })
+
+
+
+    function handleChange(e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) {
+        const newObj = UserDataObj;
+        const el = (e.target as HTMLElement);
+        const str: string | undefined = el.dataset.user;
+
+        if(str) {
+            if (el.tagName === 'INPUT') {
+                newObj[str] = (el as HTMLInputElement).value;
+            } else {
+                newObj[str] = (el as HTMLElement).textContent;
+                
+            }
+        }
+        console.log(newObj)
+        setUserDataObj(newObj);
+    }
 
     return (
         <div className="order">
@@ -138,8 +170,8 @@ const OrderFeatures: FC = () => {
                             1. Контактная информацмя
                         </div>
                         <div className="order-form-1-wrapper">
-                            <input type="text" placeholder='Имя' />
-                            <InputMask component={myInput('Телефон')} mask="+_ (___)-___-__-__" replacement="_" label="" modify={modifyPhone} />
+                            <input type="text" placeholder='Имя' onChange={handleChange} data-user='name'/>
+                            <InputMask component={myInput('Телефон', 'phone', handleChange, UserDataObj.phone)} mask="+7 (___) ___-__-__" replacement="_" label="" modify={modifyPhone} />
                         </div>
                     </div>
                     <div className="order-form order-form-2">
@@ -156,6 +188,7 @@ const OrderFeatures: FC = () => {
                                         activeIndex={activeIndex1}
                                         index={i}
                                         classNumber={1}
+                                        dataSet={'delivery'}
                                     />
                                 )}
                             </div>
@@ -172,12 +205,12 @@ const OrderFeatures: FC = () => {
                             Адрес доставки
                         </div>
                         <div className="order-form-2-grid">
-                            <input type="text" placeholder='Укажите улицу' />
-                            <input type="text" placeholder='Номер дома' />
-                            <input type="number" placeholder='№ квартиры/офиса' />
-                            <input type="number" placeholder='Подъезд' />
-                            <input type="number" placeholder='Этаж' />
-                            <input type="text" placeholder='Комментарий' />
+                            <input type="text" placeholder='Укажите улицу' onChange={handleChange} data-user='street'/>
+                            <input type="text" placeholder='Номер дома' onChange={handleChange} data-user='houseNumber'/>
+                            <input type="text" placeholder='№ квартиры/офиса' onChange={handleChange} data-user='apartmentNumber'/>
+                            <input type="text" placeholder='Подъезд' onChange={handleChange} data-user='entranceNumber'/>
+                            <input type="text" placeholder='Этаж' onChange={handleChange} data-user='floorNumber'/>
+                            <input type="text" placeholder='Комментарий' onChange={handleChange} data-user='comment'/>
                         </div>
                     </div>
                     <div className="order-form order-form-3">
@@ -193,10 +226,11 @@ const OrderFeatures: FC = () => {
                                     activeIndex={activeIndex2}
                                     index={i}
                                     classNumber={2}
+                                    dataSet={'payType'}
                                 />
                             )}
                         </div>
-                        <InputMask component={myInput('Сдача с')} mask="____" replacement="_" label="Label for custom component" />
+                        <InputMask component={myInput('Сдача с', 'changeFrom', handleChange, UserDataObj.changeFrom)} mask="____" replacement="_" label="" />
                     </div>
                     <div className="order-form order-form-4">
                         <div className="order-form-title">
@@ -205,17 +239,18 @@ const OrderFeatures: FC = () => {
                         <div className="order-form-4-wrapper">
                             <div className="order-form-choose">
                                 {['В ближайшее время', 'Ко времени'].map((el, i) =>
-                                <OrderButtons
-                                    key={i}
-                                    text={el}
-                                    handleClick={handleClick}
-                                    activeIndex={activeIndex3}
-                                    index={i}
-                                    classNumber={3}
-                                />
-                            )}
+                                    <OrderButtons
+                                        key={i}
+                                        text={el}
+                                        handleClick={handleClick}
+                                        activeIndex={activeIndex3}
+                                        index={i}
+                                        classNumber={3}
+                                        dataSet={'whatTime'}
+                                    />
+                                )}
                             </div>
-                            <input type="text" placeholder='Укажите время' />
+                            <input type="text" placeholder='Укажите время' onChange={handleChange} data-user='whatTime'/>
                         </div>
                         <div className="order-form-4-persons">
                             <div>Кол-во персон</div>

@@ -5,6 +5,4 @@ export interface dishType {
     text: string,
     weight: number,
     price: number
-
-
 }
