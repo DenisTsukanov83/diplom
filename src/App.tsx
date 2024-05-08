@@ -1,4 +1,4 @@
-import React, { FC, createContext, useState, MouseEvent, useEffect } from 'react';
+import React, { FC, createContext, useState, MouseEvent, useEffect, ChangeEvent } from 'react';
 
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -10,6 +10,9 @@ import { data } from './Data';
 
 import { dishType } from './types/dishType';
 import { BasketType } from './types/BasketType';
+import { UserDataType } from './types/UserDataType';
+import { BorderObjType } from './types/BorderObjType';
+
 const Context = createContext({});
 
 
@@ -123,6 +126,104 @@ const App: FC = () => {
 		}
 	}
 
+	//Add user obj
+	const [UserDataObj, setUserDataObj] = useState<UserDataType>({
+		'name': '',
+		'phone': '',
+		'delivery': 'Доставка',
+		'restaurant': '',
+		'street': '',
+		'houseNumber': '',
+		'apartmentNumber': '',
+		'entranceNumber': '',
+		'floorNumber': '',
+		'comment': '',
+		'payType': 'Оплата онлайн',
+		'changeFrom': '',
+		'whatTime': 'В ближайшее время',
+		'time': '',
+		'persons': 1,
+		'callBack': 'false',
+	});
+
+	function handleChangeUserData(e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement> | null) {
+		const newObj = UserDataObj;
+		if (e) {
+			const el = (e.target as HTMLElement);
+			const str: string | undefined = el.dataset.user;
+
+			if (str) {
+				if (el.tagName === 'INPUT') {
+					if(str === 'callBack') {
+						newObj[str] = (el as HTMLInputElement).value
+					} else {
+						newObj[str] = (el as HTMLInputElement).value;
+					}
+				} else if (el.tagName === 'BUTTON') {
+					newObj[str] = (el as HTMLElement).textContent;
+
+				} else if (el.tagName === 'DIV' || el.tagName === 'IMG') {
+					if (el.closest('.order-form-4-minus')) {
+						if (UserDataObj.persons > 1) {
+							newObj.persons -= 1;
+						}
+					} else if (el.closest('.order-form-4-plus')) {
+						if (UserDataObj.persons < 20) {
+							newObj.persons += 1;
+						}
+					}
+				} else if(el.tagName === 'SELECT') {
+					
+					newObj[str] = (el as HTMLInputElement).value;
+				}
+			}
+		}
+		setUserDataObj(newObj);
+	}
+
+	//---------------------------------------------------------------------------------------------
+
+
+	const [borderObj, setBorderObj] = useState<BorderObjType>({
+		'name': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
+		'phone': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
+		'street': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
+		'houseNumber': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
+		'changeFrom': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
+		'time': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
+	})
+
+	function sendData(e: ChangeEvent<HTMLInputElement>, successCheckbox: boolean) {
+		e.preventDefault();
+		const newObj = borderObj;
+		const grey = '0.0668449198rem solid rgba(255, 255, 255, 0.1)';
+		const red = '0.0668449198rem solid red';
+
+		if(successCheckbox) {
+			alert(JSON.stringify(UserDataObj));
+			
+			for (let key in borderObj) {
+				if(UserDataObj[key].length) {
+					newObj[key] = grey
+				} else {
+					if(key === 'changeFrom') {
+						newObj[key] = UserDataObj.payType === 'Наличными' ? red : grey;
+					} else if(key === 'time') {
+						newObj[key] = UserDataObj.whatTime === 'Ко времени' ? red : grey;
+					} else {
+						newObj[key] = red;
+					}
+					
+				}
+				
+			}
+			
+		} else {
+			alert('Вы не дали согласие на обработку персональных данных!');
+		}
+		setBorderObj(newObj);
+	}
+
 	useEffect(() => {
 		changeNumberOfBasket()
 	});
@@ -130,11 +231,11 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish }}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj }}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
-						<Route path='/basket' element={<BasketPage />}/>
-						<Route path='/order' element={<OrderPage/>}/>
+						<Route path='/basket' element={<BasketPage />} />
+						<Route path='/order' element={<OrderPage/>} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
 					</Routes>
 				</Context.Provider>

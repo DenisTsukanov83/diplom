@@ -3,6 +3,7 @@ export interface UserDataType {
     'name': string;
     'phone': string;
     'delivery': string;
+    'restaurant': string;
     'street': string;
     'houseNumber': string;
     'apartmentNumber': string;
@@ -12,6 +13,7 @@ export interface UserDataType {
     'payType': string;
     'changeFrom': string;
     'whatTime': string;
-    'persons': string;
-    'callBack': boolean;
+    'time': string;
+    'persons': number;
+    'callBack': string;
 }

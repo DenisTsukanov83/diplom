@@ -19,29 +19,27 @@ import OrderButtons from '../../components/orderButtons/OrderButtons';
 import { forwardRef } from 'react';
 import { InputMask } from '@react-input/mask';
 
-import { UserDataType } from '../../types/UserDataType';
-
 
 const OrderFeatures: FC = () => {
-    const { numberOfBasket } = useContext<any>(Context);
+    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj} = useContext<any>(Context);
 
     interface CustomInputProps {
         label: string;
     }
 
     // Custom input component
-    function myInput(placeholder: string, dataUser: string, handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void, val: string | number) {
-        console.log(val)
+    function myInput(placeholder: string, dataUser: string, handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void, val: string | number, disabled: boolean) {
+        const disabledClass = disabled ? 'order-disablet-class' : '';
         const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(({ label }, forwardedRef) => {
             return (
-                <input type="text"  ref={forwardedRef} /* id="custom-input" */ placeholder={placeholder} data-user={`${dataUser}`} onChange={handleChange} defaultValue={val}/>
+                <input type="text" className={disabledClass} ref={forwardedRef} /* id="custom-input" */ placeholder={placeholder} data-user={`${dataUser}`} onChange={handleChange} defaultValue={val} disabled={disabled}  style={{border: `${borderObj[dataUser]}`}}/>
             );
         });
         return CustomInput;
     }
 
     const modifyPhone = (input: string) => {
-        return { mask: input[0].length ? '+7 (___) ___-__-__' : '+7 (___) ___-__-__' };
+        return { mask: '+7 (___) ___-__-__' };
     };
 
     //---------------------------------------------------------------------------------------------
@@ -62,47 +60,43 @@ const OrderFeatures: FC = () => {
                 break;
         }
 
-        handleChange(e);
+        if ((e.target as HTMLElement).textContent === 'Доставка') {
+            setIsDelivery(true);
+        } else if ((e.target as HTMLElement).textContent === 'Самовывоз') {
+            setIsDelivery(false);
+        }
+
+        handleChangeUserData(e);
     };
 
     //---------------------------------------------------------------------------------------------
 
-    //Add user obj
-    const [UserDataObj, setUserDataObj] = useState<UserDataType>({
-        'name': '',
-        'phone': '',
-        'delivery': '',
-        'street': '',
-        'houseNumber': '',
-        'apartmentNumber': '',
-        'entranceNumber': '',
-        'floorNumber': '',
-        'comment': '',
-        'payType': '',
-        'changeFrom': '',
-        'whatTime': '',
-        'persons': '',
-        'callBack': false,
+    useEffect(() => {
+        handleChangeUserData()
     })
 
+    // Принудительный рендер для отображения количества персон???!!!
+    const [, setTick] = useState(0);
+    const forceUpdate = () => setTick(tick => tick + 1);
 
+    //---------------------------------------------------------------------------------------------
 
-    function handleChange(e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) {
-        const newObj = UserDataObj;
-        const el = (e.target as HTMLElement);
-        const str: string | undefined = el.dataset.user;
+    const [isDelivery, setIsDelivery] = useState(true);
 
-        if(str) {
-            if (el.tagName === 'INPUT') {
-                newObj[str] = (el as HTMLInputElement).value;
-            } else {
-                newObj[str] = (el as HTMLElement).textContent;
-                
-            }
-        }
-        console.log(newObj)
-        setUserDataObj(newObj);
+    //---------------------------------------------------------------------------------------------
+    const [successCheckbox, setSuccessCheckbox] = useState(false);
+
+    function onClickCheckbox(e: ChangeEvent<HTMLInputElement>) {
+        setSuccessCheckbox((e.target as HTMLInputElement).checked === true);
+        
     }
+
+    //---------------------------------------------------------------------------------------------
+
+    useEffect(() => {
+        
+    })
+
 
     return (
         <div className="order">
@@ -170,8 +164,8 @@ const OrderFeatures: FC = () => {
                             1. Контактная информацмя
                         </div>
                         <div className="order-form-1-wrapper">
-                            <input type="text" placeholder='Имя' onChange={handleChange} data-user='name'/>
-                            <InputMask component={myInput('Телефон', 'phone', handleChange, UserDataObj.phone)} mask="+7 (___) ___-__-__" replacement="_" label="" modify={modifyPhone} />
+                            <input type="text" placeholder='Имя' onChange={handleChangeUserData} data-user='name' style={{border: `${borderObj['name']}`}}/>
+                            <InputMask component={myInput('Телефон', 'phone', handleChangeUserData, UserDataObj.phone, false)} mask="+7 (___) ___-__-__" replacement="_" label="" modify={modifyPhone} />
                         </div>
                     </div>
                     <div className="order-form order-form-2">
@@ -201,16 +195,30 @@ const OrderFeatures: FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="order-form-subtitle">
-                            Адрес доставки
+                        <div className="order-form-2-pickup" style={{ display: isDelivery ? 'none' : 'block' }}>
+                            <div className="order-form-subtitle">
+                                Выберите ресторан
+                            </div>
+                            <select onChange={handleChangeUserData}  data-user={'restaurant'}>
+                                <option value="1">Ресторан-1</option>
+                                <option value="2">Ресторан-2</option>
+                                <option value="3">Ресторан-3</option>
+                            </select>
                         </div>
-                        <div className="order-form-2-grid">
-                            <input type="text" placeholder='Укажите улицу' onChange={handleChange} data-user='street'/>
-                            <input type="text" placeholder='Номер дома' onChange={handleChange} data-user='houseNumber'/>
-                            <input type="text" placeholder='№ квартиры/офиса' onChange={handleChange} data-user='apartmentNumber'/>
-                            <input type="text" placeholder='Подъезд' onChange={handleChange} data-user='entranceNumber'/>
-                            <input type="text" placeholder='Этаж' onChange={handleChange} data-user='floorNumber'/>
-                            <input type="text" placeholder='Комментарий' onChange={handleChange} data-user='comment'/>
+
+
+                        <div style={{ display: isDelivery ? 'block' : 'none' }}>
+                            <div className="order-form-subtitle">
+                                Адрес доставки
+                            </div>
+                            <div className="order-form-2-grid">
+                                <input type="text" placeholder='Укажите улицу' onChange={handleChangeUserData} data-user='street' style={{border: `${borderObj['street']}`}}/>
+                                <input type="text" placeholder='Номер дома' onChange={handleChangeUserData} data-user='houseNumber'  style={{border: `${borderObj['houseNumber']}`}}/>
+                                <input type="text" placeholder='№ квартиры/офиса' onChange={handleChangeUserData} data-user='apartmentNumber'/>
+                                <input type="text" placeholder='Подъезд' onChange={handleChangeUserData} data-user='entranceNumber'/>
+                                <input type="text" placeholder='Этаж' onChange={handleChangeUserData} data-user='floorNumber' />
+                                <input type="text" placeholder='Комментарий' onChange={handleChangeUserData} data-user='comment' />
+                            </div>
                         </div>
                     </div>
                     <div className="order-form order-form-3">
@@ -230,7 +238,10 @@ const OrderFeatures: FC = () => {
                                 />
                             )}
                         </div>
-                        <InputMask component={myInput('Сдача с', 'changeFrom', handleChange, UserDataObj.changeFrom)} mask="____" replacement="_" label="" />
+                        <div style={{ display: isDelivery ? 'block' : 'none' }}>
+                            <InputMask component={myInput('Сдача с', 'changeFrom', handleChangeUserData, UserDataObj.changeFrom, UserDataObj.payType === 'Наличными' ? false : true)} mask="____" replacement="_" label="" />
+                        </div>
+
                     </div>
                     <div className="order-form order-form-4">
                         <div className="order-form-title">
@@ -250,17 +261,23 @@ const OrderFeatures: FC = () => {
                                     />
                                 )}
                             </div>
-                            <input type="text" placeholder='Укажите время' onChange={handleChange} data-user='whatTime'/>
+                            <InputMask component={myInput('Укажите время', 'time', handleChangeUserData, UserDataObj.time, UserDataObj.whatTime === 'Ко времени' ? false : true)} mask="__:__" replacement="_" label="" />
                         </div>
                         <div className="order-form-4-persons">
                             <div>Кол-во персон</div>
                             <div>
-                                <div>
-                                    <img src={minus} alt="minus.png" />
+                                <div onClick={(e) => {
+                                    handleChangeUserData(e);
+                                    forceUpdate()
+                                }} data-user={'persons'} className='order-form-4-minus'>
+                                    <img src={minus} alt="minus.png" data-user={'persons'} />
                                 </div>
-                                <div>1</div>
-                                <div>
-                                    <img src={plus} alt="plus.png" />
+                                <div>{UserDataObj.persons}</div>
+                                <div onClick={(e) => {
+                                    handleChangeUserData(e);
+                                    forceUpdate()
+                                }} data-user={'persons'} className='order-form-4-plus'>
+                                    <img src={plus} alt="plus.png" data-user={'persons'} />
                                 </div>
                             </div>
                         </div>
@@ -269,11 +286,11 @@ const OrderFeatures: FC = () => {
                         </div>
                         <div className='order-form-4-callBack'>
                             <label>
-                                <input type="radio" name='callBack' checked />
+                                <input type="radio" name='callBack' value={'false'} data-user={'callBack'} defaultChecked onChange={handleChangeUserData} />
                                 <span>Не перезванивать</span>
                             </label>
                             <label>
-                                <input type="radio" name='callBack' />
+                                <input type="radio" name='callBack' value={'true'} data-user={'callBack'} onChange={handleChangeUserData} />
                                 <span>Потребуется звонок оператора</span>
                             </label>
                         </div>
@@ -281,7 +298,7 @@ const OrderFeatures: FC = () => {
                     <div className="order-form order-form-5">
                         <div>
                             <label>
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={onClickCheckbox}/>
                                 <span></span>
                             </label>
                         </div>
@@ -294,7 +311,11 @@ const OrderFeatures: FC = () => {
                             </a>
                         </div>
                         <div>
-                            <input type="submit" value='Оформить заказ' />
+                            <input type="submit" value='Оформить заказ' onClick={(e) => {
+                                sendData(e, successCheckbox);
+                                forceUpdate();
+                                
+                            }}/>
                         </div>
                     </div>
                 </form>

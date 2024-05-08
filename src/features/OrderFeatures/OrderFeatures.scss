@@ -131,7 +131,7 @@
             display: flex;
             align-items: center;
             padding: rem(5px);
-            border-right: 1px solid $white-color;
+            border-right: rem(1px) solid $white-color;
             font-size: rem(14px);
             color: $white-color;
             padding: rem(10px) rem(0px);
@@ -208,7 +208,7 @@
             color: $white-color;
         }
 
-        & input {
+        & input, & select {
             font-weight: 400;
             font-size: rem(16px);
             border-radius: rem(10px);
@@ -277,6 +277,15 @@
         }
 
         &-2 {
+            &-pickup {
+                & select {
+                    width: rem(370px);
+
+                    & option {
+                        background: $main-color;
+                    }
+                }
+            }
             &-wrapper {
                 display: flex;
                 gap: 30px;
@@ -392,6 +401,7 @@
                     & div:nth-child(2) {
                         font-weight: 500;
                         font-size: rem(18px);
+                        width: rem(10px);
                     }
 
                     & div:last-child {
@@ -441,8 +451,8 @@
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    width: 22px;
-                    height: 22px;
+                    width: rem(18px);
+                    height: rem(18px);
                     border-radius: 50%;
                     transform: translate(-50%, -50%);
                     background-color: white;
@@ -454,8 +464,8 @@
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    width: 15px;
-                    height: 15px;
+                    width: rem(15px);
+                    height: rem(15px);
                     border-radius: 50%;
                     background-color: rgba(114, 164, 121, 1);
                     transform: translate(-50%, -50%);
@@ -533,4 +543,9 @@
 
 .order-btn-active {
     background: linear-gradient(90deg, rgba(97, 137, 103, 1), rgba(114, 164, 121, 1)) !important;
+}
+
+.order-disablet-class {
+    opacity: 0.5;
+
 }
