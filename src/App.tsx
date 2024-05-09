@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import BasketPage from './pages/BasketPage';
 import NotFoundPage from './pages/NotFoundPage';
 import OrderPage from './pages/OrderPage';
+import ConditionsPage from './pages/ConditionsPage';
 
 import { data } from './Data';
 
@@ -236,6 +237,7 @@ const App: FC = () => {
 						<Route path='/diplom/:block?' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
 						<Route path='/order' element={<OrderPage/>} />
+						<Route path='/conditions' element={<ConditionsPage/>} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
 					</Routes>
 				</Context.Provider>

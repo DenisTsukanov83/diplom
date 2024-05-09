@@ -306,9 +306,12 @@ const OrderFeatures: FC = () => {
                             <span>
                                 Я согласен на обработку моих перс.данных в соответствии с
                             </span>
-                            <a href="">
-                                &nbsp;Условиями
-                            </a>
+                            <Link to={'/conditions'} className="no-underline">
+                                <span>
+                                    &nbsp;Условиями
+                                </span>
+                            </Link>
+                            
                         </div>
                         <div>
                             <input type="submit" value='Оформить заказ' onClick={(e) => {

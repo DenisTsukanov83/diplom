@@ -14,8 +14,6 @@ interface CardProps {
 const Card: FC<CardProps> = ({ data, numberOfDishes }) => {
     const { onIncreaseBasketArr } = useContext<any>(Context);
 
-    console.log(numberOfDishes)
-
     return (
         <div className="card">
             <div className="card-img">

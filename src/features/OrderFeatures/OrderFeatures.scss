@@ -514,7 +514,7 @@
                 font-size: rem(13.5px);
                 margin-left: rem(10px);
 
-                & a {
+                & span:last-child {
                     color: rgba(114, 164, 121, 1);
                 }
             }

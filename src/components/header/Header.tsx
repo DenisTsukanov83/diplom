@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.scss';
 import bg from '../../assets/img/header/main-bg.jpeg';
@@ -8,10 +8,47 @@ import calling from '../../assets/img/header/Calling.png';
 
 import { Context } from '../../App';
 
-
+import ModalBasket from '../modalBasket/ModalBasket';
 
 function Header() {
     const { numberOfBasket } = useContext<any>(Context);
+    const [displayModal, setIsDisplayModal] = useState(false);
+
+    function onClickBasket() {
+        setIsDisplayModal(numberOfBasket > 0 ? false : true);
+    }
+
+    function closeModal() {
+        setIsDisplayModal(false);
+    }
+
+    function ModalComponent() {
+        if(displayModal) {
+            return <ModalBasket closeModal={closeModal}/>
+        } else {
+            <div></div>
+        }
+    }
+
+    function BasketButton() {
+        if (numberOfBasket < 1) {
+            return (
+                <button className="header-basket" onClick={onClickBasket}>
+                    <div className="header-basket-title">Корзина</div>
+                    <div className="header-basket-number">{numberOfBasket}</div>
+                </button>
+            )
+        } else {
+            return (
+                <Link to={'/basket'} className="no-underline">
+                    <button className="header-basket">
+                        <div className="header-basket-title">Корзина</div>
+                        <div className="header-basket-number">{numberOfBasket}</div>
+                    </button>
+                </Link>
+            )
+        }
+    }
 
     return (
         <header className="header">
@@ -45,12 +82,9 @@ function Header() {
                         <div className="header-contact-number">+7 (917) 510-57-59</div>
                     </div>
                 </div>
-                <Link to={'/basket'} className="no-underline">
-                    <button className="header-basket">
-                        <div className="header-basket-title">Корзина</div>
-                        <div className="header-basket-number">{numberOfBasket}</div>
-                    </button>
-                </Link>
+                {BasketButton()}
+                {ModalComponent()}
+                
             </div>
 
             <div className="header-main">

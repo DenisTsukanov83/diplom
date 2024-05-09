@@ -1,0 +1,57 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.modal-basket {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    background: linear-gradient(rgba(33, 31, 32, 0.5), rgba(68, 64, 63, 0.5));
+
+    &-content {
+        margin: auto;
+        width: rem(470px);
+        height: rem(348px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: Gilroy-Bold;
+        background: linear-gradient(90deg, rgba(73, 69, 68, 1), rgba(80, 75, 74, 1));
+        border-radius: rem(10px);
+        margin-top: rem(180px);
+        padding-top: rem(54px);
+        & div {
+            width: rem(73px);
+            height: auto;
+        }
+
+        & h3 {
+            font-size: rem(30px);
+            color: $white-color;
+            text-transform: uppercase;
+            margin-top: rem(15px);
+        }
+
+        & button {
+            width: rem(188px);
+            height: rem(51px);
+            border-radius: rem(10px);
+            background: linear-gradient(90deg, rgba(97, 137, 103, 1), rgba(114, 164, 121, 1));
+            border: none;
+            font-size: rem(14px);
+            color: $white-color;
+            cursor: pointer;
+            margin-top: rem(45px);
+        }
+    }
+
+    &-add {
+        width: rem(30px);
+        position: absolute;
+        top: rem(200px);
+        left: rem(935px);
+        cursor: pointer;
+    }
+}
