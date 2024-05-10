@@ -17,22 +17,35 @@ import Footer from '../../components/footer/Footer';
 import OrderButtons from '../../components/orderButtons/OrderButtons';
 
 import { forwardRef } from 'react';
-import { InputMask } from '@react-input/mask';
+import { InputMask, Track } from '@react-input/mask';
 
 
 const OrderFeatures: FC = () => {
-    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj} = useContext<any>(Context);
+    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj, getValid } = useContext<any>(Context);
 
     interface CustomInputProps {
         label: string;
     }
 
     // Custom input component
-    function myInput(placeholder: string, dataUser: string, handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void, val: string | number, disabled: boolean) {
+    function myInput(placeholder: string,
+                    dataUser: string, 
+                    handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void, 
+                    val: string | number, 
+                    disabled: boolean) {
         const disabledClass = disabled ? 'order-disablet-class' : '';
         const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(({ label }, forwardedRef) => {
             return (
-                <input type="text" className={disabledClass} ref={forwardedRef} /* id="custom-input" */ placeholder={placeholder} data-user={`${dataUser}`} onChange={handleChange} defaultValue={val} disabled={disabled}  style={{border: `${borderObj[dataUser]}`}}/>
+                <input 
+                    type="text" 
+                    className={disabledClass} 
+                    ref={forwardedRef} /* id="custom-input" */ 
+                    placeholder={placeholder} 
+                    data-user={`${dataUser}`} 
+                    onChange={handleChange} 
+                    defaultValue={val} 
+                    disabled={disabled}
+                    style={{ border: `${borderObj[dataUser]}` }}/>
             );
         });
         return CustomInput;
@@ -88,14 +101,16 @@ const OrderFeatures: FC = () => {
 
     function onClickCheckbox(e: ChangeEvent<HTMLInputElement>) {
         setSuccessCheckbox((e.target as HTMLInputElement).checked === true);
-        
+
     }
 
     //---------------------------------------------------------------------------------------------
 
     useEffect(() => {
-        
+
     })
+
+
 
 
     return (
@@ -164,8 +179,22 @@ const OrderFeatures: FC = () => {
                             1. Контактная информацмя
                         </div>
                         <div className="order-form-1-wrapper">
-                            <input type="text" placeholder='Имя' onChange={handleChangeUserData} data-user='name' style={{border: `${borderObj['name']}`}}/>
-                            <InputMask component={myInput('Телефон', 'phone', handleChangeUserData, UserDataObj.phone, false)} mask="+7 (___) ___-__-__" replacement="_" label="" modify={modifyPhone} />
+                            {/* <input type="text" placeholder='Имя' onChange={handleChangeUserData} data-user='name' style={{ border: `${borderObj['name']}` }} /> */}
+                            <InputMask
+                                component={myInput('Имя', 'name', handleChangeUserData, UserDataObj.name, false)}
+                                mask="+7 (___) ___-__-__"
+                                replacement={{ _: /\w/ }}
+                                label=""
+                                onMask={(event) => getValid('phone', event.detail.isValid)}
+                                />
+                            <InputMask
+                                component={myInput('Телефон', 'phone', handleChangeUserData, UserDataObj.phone, false)}
+                                mask="+7 (___) ___-__-__"
+                                replacement={{ _: /\d/ }}
+                                label=""
+                                modify={modifyPhone}
+                                onMask={(event) => getValid('phone', event.detail.isValid)}
+                                />
                         </div>
                     </div>
                     <div className="order-form order-form-2">
@@ -199,7 +228,7 @@ const OrderFeatures: FC = () => {
                             <div className="order-form-subtitle">
                                 Выберите ресторан
                             </div>
-                            <select onChange={handleChangeUserData}  data-user={'restaurant'}>
+                            <select onChange={handleChangeUserData} data-user={'restaurant'}>
                                 <option value="1">Ресторан-1</option>
                                 <option value="2">Ресторан-2</option>
                                 <option value="3">Ресторан-3</option>
@@ -212,10 +241,10 @@ const OrderFeatures: FC = () => {
                                 Адрес доставки
                             </div>
                             <div className="order-form-2-grid">
-                                <input type="text" placeholder='Укажите улицу' onChange={handleChangeUserData} data-user='street' style={{border: `${borderObj['street']}`}}/>
-                                <input type="text" placeholder='Номер дома' onChange={handleChangeUserData} data-user='houseNumber'  style={{border: `${borderObj['houseNumber']}`}}/>
-                                <input type="text" placeholder='№ квартиры/офиса' onChange={handleChangeUserData} data-user='apartmentNumber'/>
-                                <input type="text" placeholder='Подъезд' onChange={handleChangeUserData} data-user='entranceNumber'/>
+                                <input type="text" placeholder='Укажите улицу' onChange={handleChangeUserData} data-user='street' style={{ border: `${borderObj['street']}` }} />
+                                <input type="text" placeholder='Номер дома' onChange={handleChangeUserData} data-user='houseNumber' style={{ border: `${borderObj['houseNumber']}` }} />
+                                <input type="text" placeholder='№ квартиры/офиса' onChange={handleChangeUserData} data-user='apartmentNumber' />
+                                <input type="text" placeholder='Подъезд' onChange={handleChangeUserData} data-user='entranceNumber' />
                                 <input type="text" placeholder='Этаж' onChange={handleChangeUserData} data-user='floorNumber' />
                                 <input type="text" placeholder='Комментарий' onChange={handleChangeUserData} data-user='comment' />
                             </div>
@@ -298,7 +327,7 @@ const OrderFeatures: FC = () => {
                     <div className="order-form order-form-5">
                         <div>
                             <label>
-                                <input type="checkbox" onChange={onClickCheckbox}/>
+                                <input type="checkbox" onChange={onClickCheckbox} />
                                 <span></span>
                             </label>
                         </div>
@@ -311,14 +340,14 @@ const OrderFeatures: FC = () => {
                                     &nbsp;Условиями
                                 </span>
                             </Link>
-                            
+
                         </div>
                         <div>
                             <input type="submit" value='Оформить заказ' onClick={(e) => {
                                 sendData(e, successCheckbox);
                                 forceUpdate();
-                                
-                            }}/>
+
+                            }} />
                         </div>
                     </div>
                 </form>

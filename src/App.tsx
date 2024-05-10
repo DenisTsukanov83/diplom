@@ -147,18 +147,34 @@ const App: FC = () => {
 		'callBack': 'false',
 	});
 
+	const validObj: BorderObjType = {
+		'name': 'false',
+		'phone': 'false',
+		'street': 'false',
+		'houseNumber': 'false',
+		'changeFrom': 'false',
+		'time': 'false',
+	}
+
+	function getValid(name: string, isValid: boolean) {
+		validObj[name] = `${isValid}`;
+	}
+
 	function handleChangeUserData(e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement> | null) {
 		const newObj = UserDataObj;
 		if (e) {
 			const el = (e.target as HTMLElement);
 			const str: string | undefined = el.dataset.user;
+			console.log((e.target as HTMLInputElement).value)
 
 			if (str) {
 				if (el.tagName === 'INPUT') {
 					if(str === 'callBack') {
 						newObj[str] = (el as HTMLInputElement).value
+
 					} else {
 						newObj[str] = (el as HTMLInputElement).value;
+
 					}
 				} else if (el.tagName === 'BUTTON') {
 					newObj[str] = (el as HTMLElement).textContent;
@@ -205,12 +221,16 @@ const App: FC = () => {
 			
 			for (let key in borderObj) {
 				if(UserDataObj[key].length) {
-					newObj[key] = grey
+					newObj[key] = grey;
 				} else {
 					if(key === 'changeFrom') {
 						newObj[key] = UserDataObj.payType === 'Наличными' ? red : grey;
 					} else if(key === 'time') {
 						newObj[key] = UserDataObj.whatTime === 'Ко времени' ? red : grey;
+					} else if(key === 'street') {
+						newObj[key] = UserDataObj.delivery === 'Доставка' ? red : grey;
+					} else if(key === 'houseNumber') {
+						newObj[key] = UserDataObj.delivery === 'Доставка' ? red : grey;
 					} else {
 						newObj[key] = red;
 					}
@@ -232,7 +252,7 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj }}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid }}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
