@@ -6,6 +6,7 @@ import BasketPage from './pages/BasketPage';
 import NotFoundPage from './pages/NotFoundPage';
 import OrderPage from './pages/OrderPage';
 import ConditionsPage from './pages/ConditionsPage';
+import RegisterPage from './pages/RegisterPage';
 
 import { data } from './Data';
 
@@ -346,7 +347,9 @@ const App: FC = () => {
 						<Route path='/basket' element={<BasketPage />} />
 						<Route path='/order' element={<OrderPage />} />
 						<Route path='/conditions' element={<ConditionsPage />} />
+						<Route path='/register' element={<RegisterPage />} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
+						
 					</Routes>
 				</Context.Provider>
 			</div>
