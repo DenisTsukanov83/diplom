@@ -159,25 +159,58 @@ const App: FC = () => {
 	function getValid(name: string, isValid: boolean) {
 		validObj[name] = `${isValid}`;
 	}
+	//-----------------------------------------------------------------------------------------------------------------
+	const [nameInputValue, setNameInputValue] = useState('');
+	const [streetInputValue, setStreetInputValue] = useState('');
+	const [numberHouseInputValue, setNumberHouseInputValue] = useState('');
+	const [changeFromInputValue, setChangeFromInputValue] = useState('');
+
+	//-----------------------------------------------------------------------------------------------------------------
+
 
 	function handleChangeUserData(e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement> | null) {
 		const newObj = UserDataObj;
 		if (e) {
 			const el = (e.target as HTMLElement);
 			const str: string | undefined = el.dataset.user;
-			console.log((e.target as HTMLInputElement).value)
+			let value = (el as HTMLInputElement).value;
 
 			if (str) {
 				if (el.tagName === 'INPUT') {
-					if(str === 'callBack') {
-						newObj[str] = (el as HTMLInputElement).value
-
+					if (str === 'callBack') {
+						newObj[str] = value;
+					} else if (str === 'name') {
+						let val = '';
+						if (/[a-z]|[A-Z]|[а-я]|[А-Я]/.test(value[value.length - 1])) {
+							val = value;
+							setNameInputValue(val);
+						}
+						newObj[str] = val;
+					} else if (str === 'street') {
+						setStreetInputValue(value);
+						newObj[str] = value;
+					} else if (str === 'houseNumber') {
+						let val = '';
+						if (/[0-9]|\/|[а-я]/.test(value[value.length - 1]) || value === '') {
+							val = value;
+							setNumberHouseInputValue(val);
+						}
+						newObj[str] = val;
+					} else if (str === 'changeFrom') {
+						let val = '';
+						if (/[0-9]/.test(value[value.length - 1]) || value === '') {
+							if (value.length < 5) {
+								val = value;
+								setChangeFromInputValue(val);
+							}
+						}
+						newObj[str] = val;
 					} else {
-						newObj[str] = (el as HTMLInputElement).value;
+						newObj[str] = value;
 
 					}
 				} else if (el.tagName === 'BUTTON') {
-					newObj[str] = (el as HTMLElement).textContent;
+					newObj[str] = el.textContent;
 
 				} else if (el.tagName === 'DIV' || el.tagName === 'IMG') {
 					if (el.closest('.order-form-4-minus')) {
@@ -189,12 +222,13 @@ const App: FC = () => {
 							newObj.persons += 1;
 						}
 					}
-				} else if(el.tagName === 'SELECT') {
-					
-					newObj[str] = (el as HTMLInputElement).value;
+				} else if (el.tagName === 'SELECT') {
+
+					newObj[str] = value;
 				}
 			}
 		}
+		console.log(UserDataObj)
 		setUserDataObj(newObj);
 	}
 
@@ -215,12 +249,60 @@ const App: FC = () => {
 		const newObj = borderObj;
 		const grey = '0.0668449198rem solid rgba(255, 255, 255, 0.1)';
 		const red = '0.0668449198rem solid red';
+		let success = true;
 
-		if(successCheckbox) {
-			alert(JSON.stringify(UserDataObj));
+		if (successCheckbox) {
 			
 			for (let key in borderObj) {
-				if(UserDataObj[key].length) {
+				if (key === 'name') {
+					console.log(UserDataObj[key].length)
+					if (UserDataObj[key].length) {
+						newObj[key] = grey;
+					} else {
+						newObj[key] = red;
+						success = false;
+						
+					}
+				} else if (key === 'phone') {
+					if (UserDataObj.phone.length === 18) {
+						newObj[key] = grey;
+					} else {
+						newObj[key] = red;
+						success = false;
+					}
+				} else if (key === 'street') {
+					if (UserDataObj.delivery === 'Доставка' && !UserDataObj.street.length) {
+						newObj[key] = red;
+						success = false;
+					} else {
+						newObj[key] = grey;
+					}
+				} else if (key === 'houseNumber') {
+					if (UserDataObj.delivery === 'Доставка' && !UserDataObj.houseNumber.length) {
+						newObj[key] = red;
+						success = false;
+					} else {
+						newObj[key] = grey;
+					}
+				} else if (key === 'changeFrom') {
+					if(UserDataObj.payType === 'Наличными' && UserDataObj.delivery === 'Доставка' && !UserDataObj.changeFrom.length) {
+						newObj[key] = red;
+						success = false;
+					} else {
+						newObj[key] = grey;
+					}
+				} else if(key === 'time') {
+					if(UserDataObj.whatTime === 'Ко времени') {
+						if(UserDataObj.time.length < 5) {
+							newObj[key] = red;
+							success = false;
+						} else {
+							newObj[key] = grey;
+						}
+						
+					}
+				}
+				/* if(UserDataObj[key].length) {
 					newObj[key] = grey;
 				} else {
 					if(key === 'changeFrom') {
@@ -235,14 +317,20 @@ const App: FC = () => {
 						newObj[key] = red;
 					}
 					
-				}
-				
+				} */
+
 			}
-			
+
 		} else {
 			alert('Вы не дали согласие на обработку персональных данных!');
 		}
 		setBorderObj(newObj);
+		if(success) {
+			alert('Данные отправлены!')
+			alert(JSON.stringify(UserDataObj));
+		} else {
+			alert('Введите данные!')
+		}
 	}
 
 	useEffect(() => {
@@ -252,12 +340,12 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid }}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue }}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
-						<Route path='/order' element={<OrderPage/>} />
-						<Route path='/conditions' element={<ConditionsPage/>} />
+						<Route path='/order' element={<OrderPage />} />
+						<Route path='/conditions' element={<ConditionsPage />} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
 					</Routes>
 				</Context.Provider>

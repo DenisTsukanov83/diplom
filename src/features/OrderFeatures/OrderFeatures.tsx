@@ -21,7 +21,7 @@ import { InputMask, Track } from '@react-input/mask';
 
 
 const OrderFeatures: FC = () => {
-    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj, getValid } = useContext<any>(Context);
+    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue } = useContext<any>(Context);
 
     interface CustomInputProps {
         label: string;
@@ -29,23 +29,23 @@ const OrderFeatures: FC = () => {
 
     // Custom input component
     function myInput(placeholder: string,
-                    dataUser: string, 
-                    handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void, 
-                    val: string | number, 
-                    disabled: boolean) {
+        dataUser: string,
+        handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void,
+        val: string | number,
+        disabled: boolean) {
         const disabledClass = disabled ? 'order-disablet-class' : '';
         const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(({ label }, forwardedRef) => {
             return (
-                <input 
-                    type="text" 
-                    className={disabledClass} 
-                    ref={forwardedRef} /* id="custom-input" */ 
-                    placeholder={placeholder} 
-                    data-user={`${dataUser}`} 
-                    onChange={handleChange} 
-                    defaultValue={val} 
+                <input
+                    type="text"
+                    className={disabledClass}
+                    ref={forwardedRef} /* id="custom-input" */
+                    placeholder={placeholder}
+                    data-user={`${dataUser}`}
+                    onChange={handleChange}
+                    defaultValue={val}
                     disabled={disabled}
-                    style={{ border: `${borderObj[dataUser]}` }}/>
+                    style={{ border: `${borderObj[dataUser]}` }} />
             );
         });
         return CustomInput;
@@ -179,14 +179,12 @@ const OrderFeatures: FC = () => {
                             1. Контактная информацмя
                         </div>
                         <div className="order-form-1-wrapper">
-                            {/* <input type="text" placeholder='Имя' onChange={handleChangeUserData} data-user='name' style={{ border: `${borderObj['name']}` }} /> */}
-                            <InputMask
-                                component={myInput('Имя', 'name', handleChangeUserData, UserDataObj.name, false)}
-                                mask="+7 (___) ___-__-__"
-                                replacement={{ _: /\w/ }}
-                                label=""
-                                onMask={(event) => getValid('phone', event.detail.isValid)}
-                                />
+                            <input
+                                type="text"
+                                placeholder='Имя'
+                                onChange={handleChangeUserData}
+                                data-user='name' style={{ border: `${borderObj['name']}` }}
+                                value={nameInputValue} />
                             <InputMask
                                 component={myInput('Телефон', 'phone', handleChangeUserData, UserDataObj.phone, false)}
                                 mask="+7 (___) ___-__-__"
@@ -194,7 +192,7 @@ const OrderFeatures: FC = () => {
                                 label=""
                                 modify={modifyPhone}
                                 onMask={(event) => getValid('phone', event.detail.isValid)}
-                                />
+                            />
                         </div>
                     </div>
                     <div className="order-form order-form-2">
@@ -241,8 +239,20 @@ const OrderFeatures: FC = () => {
                                 Адрес доставки
                             </div>
                             <div className="order-form-2-grid">
-                                <input type="text" placeholder='Укажите улицу' onChange={handleChangeUserData} data-user='street' style={{ border: `${borderObj['street']}` }} />
-                                <input type="text" placeholder='Номер дома' onChange={handleChangeUserData} data-user='houseNumber' style={{ border: `${borderObj['houseNumber']}` }} />
+                                <input
+                                    type="text"
+                                    placeholder='Укажите улицу'
+                                    onChange={handleChangeUserData}
+                                    data-user='street'
+                                    style={{ border: `${borderObj['street']}` }}
+                                    value={streetInputValue} />
+                                <input
+                                    type="text"
+                                    placeholder='Номер дома'
+                                    onChange={handleChangeUserData}
+                                    data-user='houseNumber'
+                                    style={{ border: `${borderObj['houseNumber']}` }}
+                                    value={numberHouseInputValue} />
                                 <input type="text" placeholder='№ квартиры/офиса' onChange={handleChangeUserData} data-user='apartmentNumber' />
                                 <input type="text" placeholder='Подъезд' onChange={handleChangeUserData} data-user='entranceNumber' />
                                 <input type="text" placeholder='Этаж' onChange={handleChangeUserData} data-user='floorNumber' />
@@ -268,7 +278,12 @@ const OrderFeatures: FC = () => {
                             )}
                         </div>
                         <div style={{ display: isDelivery ? 'block' : 'none' }}>
-                            <InputMask component={myInput('Сдача с', 'changeFrom', handleChangeUserData, UserDataObj.changeFrom, UserDataObj.payType === 'Наличными' ? false : true)} mask="____" replacement="_" label="" />
+                            <input type="text" placeholder='Сдача с' onChange={handleChangeUserData} data-user='changeFrom' value={changeFromInputValue} style={{ border: `${borderObj['changeFrom']}` }} className={UserDataObj.payType === 'Наличными' ? '' : 'order-disablet-class'}/>
+                            {/* <InputMask
+                                component={myInput('Сдача с', 'changeFrom', handleChangeUserData, UserDataObj.changeFrom, UserDataObj.payType === 'Наличными' ? false : true)}
+                                mask="____"
+                                replacement=" _: /\d/ "
+                                label="" /> */}
                         </div>
 
                     </div>
@@ -290,7 +305,11 @@ const OrderFeatures: FC = () => {
                                     />
                                 )}
                             </div>
-                            <InputMask component={myInput('Укажите время', 'time', handleChangeUserData, UserDataObj.time, UserDataObj.whatTime === 'Ко времени' ? false : true)} mask="__:__" replacement="_" label="" />
+                            <InputMask 
+                                component={myInput('Укажите время', 'time', handleChangeUserData, UserDataObj.time, UserDataObj.whatTime === 'Ко времени' ? false : true)} 
+                                mask="__:__"
+                                replacement={{_:/\d/}}
+                                label="" />
                         </div>
                         <div className="order-form-4-persons">
                             <div>Кол-во персон</div>
