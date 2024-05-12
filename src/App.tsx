@@ -7,6 +7,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import OrderPage from './pages/OrderPage';
 import ConditionsPage from './pages/ConditionsPage';
 import RegisterPage from './pages/RegisterPage';
+import LogInPage from './pages/LogInPage';
+import DashBoardPage from './pages/DashBoardPage';
 
 import { data } from './Data';
 
@@ -347,6 +349,8 @@ const App: FC = () => {
 						<Route path='/order' element={<OrderPage />} />
 						<Route path='/conditions' element={<ConditionsPage />} />
 						<Route path='/register' element={<RegisterPage />} />
+						<Route path='/login' element={<LogInPage />} />
+						<Route path='/dashboard' element={<DashBoardPage />} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
 						
 					</Routes>

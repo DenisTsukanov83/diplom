@@ -71,7 +71,7 @@ const Basket: FC = () => {
                         <div className="basket-contact-number">+7 (917) 510-57-59</div>
                     </div>
                 </div>
-                <Link to={'/register'} className="no-underline">
+                <Link to={'/login'} className="no-underline">
                     <button className="basket-signIn">
                         <div className="basket-signIn-img">
                             <img src={profile} alt="Profile.png" />
