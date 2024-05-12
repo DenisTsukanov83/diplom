@@ -16,7 +16,7 @@ const RegisterFeatures = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
 
-    async function login(email: string, password: string) {
+    /* async function login(email: string, password: string) {
         const session = await account.createSession(
             email, 
             password
@@ -40,12 +40,12 @@ const RegisterFeatures = () => {
         await account.deleteSession('current');
         setLoggedInUser(null);
     }
-
+ */
 
 
     return (
         <div>
-            <p>
+            {/* <p>
                 {loggedInUser ? `Logged in as ${loggedInUser}` : 'Not logged in'}
             </p>
 
@@ -71,7 +71,7 @@ const RegisterFeatures = () => {
                 >
                     Logout
                 </button>
-            </form>
+            </form> */}
         </div>
     );
 };
