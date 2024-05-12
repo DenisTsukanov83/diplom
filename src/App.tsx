@@ -229,7 +229,6 @@ const App: FC = () => {
 				}
 			}
 		}
-		console.log(UserDataObj)
 		setUserDataObj(newObj);
 	}
 
