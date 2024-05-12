@@ -20,19 +20,29 @@ const RegisterFeatures = () => {
         const session = await account.createSession(
             email, 
             password
-        );
+        ).then(resp => {
+            const response: any = resp;
+            console.log(response)
+        }).catch(resp => {
+            const response: any = resp;
+            console.log(response)
+        });
     }
 
 
 
-    async function register(email: string, name: string) {
-
-        const promise = account.create(ID.unique(), email, name);
-
-        promise.then(function (response) {
-            console.log(response); // Success
-        }, function (error) {
-            console.log(error); // Failure
+    async function register(email: string, password: string) {
+        const id  = ID.unique();
+        const user = await account.create(
+            id, 
+            email, 
+            password
+        ).then(resp => {
+            const response: any = resp;
+            console.log(response)
+        }).catch(resp => {
+            const response: any = resp;
+            console.log(response)
         });
     }
 
@@ -60,7 +70,7 @@ const RegisterFeatures = () => {
 
                 <button
                     type="button"
-                    onClick={() => register(email, name)}
+                    onClick={() => register(email, password)}
                 >
                     Register
                 </button>
