@@ -1,33 +1,37 @@
-import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DashBoardFeatures.scss';
 import { account } from '../../appwrite/config';
 
 
-
-const DashBoardFeatures = (props: any) => {
+const DashBoardFeatures = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
 
     const isLogin = async () => {
-        try {
-            const x = await account.get();
-            setEmail(x.email);
-            setName(x.name);
-            console.log(x)
-        } catch (e) {
-            setTimeout(() => {
+        const x = await account.get().then(res => {
+            setEmail(res.email);
+            setName(res.name);
+        }).catch(e => {
+            if (e.message === 'User (role: guests) missing scope (account)') {
+
+            } else {
                 navigate('/login');
-            }, 1000);
-        }
+            }
+            console.log(e.message)
+
+        });
     }
+
+
 
     useEffect(() => {
         isLogin();
+        console.log(name, email)
     })
 
-    const handleLogout = async() => {
+    const handleLogout = async () => {
         try {
             const x = await account.deleteSession('current');
             navigate('/login')
@@ -36,14 +40,17 @@ const DashBoardFeatures = (props: any) => {
         }
     }
 
-    
+
     return (
         <div>
             {name && email ? <>
                 <h1>Welcome, {name}</h1>
                 <p>Email: {email}</p>
                 <button onClick={handleLogout}>Выйти</button>
-            </> : <><h1>Loading</h1></>}
+            </> : <><div>
+                <h1>Loading</h1>
+                <button onClick={handleLogout}>Выйти</button>
+            </div></>}
         </div>
     );
 }

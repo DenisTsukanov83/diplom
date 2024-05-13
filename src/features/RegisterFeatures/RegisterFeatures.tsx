@@ -1,6 +1,7 @@
 import { useState, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { account } from '../../appwrite/config';
+import { ID } from 'appwrite';
 
 import './RegisterFeatures.scss';
 
@@ -19,8 +20,10 @@ const RegisterFeatures = () => {
     }
 
     const register = async () => {
+        const id = ID.unique();
+        console.log(id)
         try {
-            const x = await account.create('unique()', email, password, name);
+            const x = await account.create(id, email, password, name);
             console.log(x)
         } catch (e) {
             console.log(e);

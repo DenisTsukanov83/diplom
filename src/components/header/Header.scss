@@ -199,9 +199,10 @@
             height: rem(545px);
             padding: rem(12px) rem(55px) rem(15px) rem(55px);
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: rem(480px) rem(415px) 1fr;
             grid-template-rows: repeat(2, 1fr);
             align-items: normal;
+            padding: rem(55px) rem(65px) rem(55px) rem(50px);
         }
 
         &-logo {
@@ -241,5 +242,97 @@
         &-contact {
             display: none;
         }
+
+        &-basket {
+            flex-direction: column-reverse;
+            justify-content: center;
+            width: rem(235px);
+            height: rem(210px);
+            border-radius: rem(30px);
+            
+            &-number {
+                width: rem(80px);
+                height: rem(80px);
+                font-size: rem(42px);
+                margin: 0;
+                margin-bottom: rem(20px);
+            }
+
+            &-title {
+                border-right: none;
+                border-top: rem(1px) solid $white-color;
+                font-size: rem(42px);
+                width: 100%;
+                text-align: center;
+                margin-left: rem(12px);
+            }
+        }
+
+        &-logo {
+            font-size: rem(95px);
+            margin-top: rem(50px);
+            letter-spacing: rem(15px);
+        }
+
+        &-input {
+            grid-column: 1 / 4;
+            grid-row: 2 / 3;
+            width: 100%;
+            height: rem(200px);
+            margin-top: rem(40px);
+            padding: 0 rem(60px);
+            border-radius: rem(30px);
+
+            &-loc {
+                width: rem(90px);
+                height: auto;
+            }
+
+            & input {
+                font-size: rem(55px);
+                margin-left: rem(50px);
+            }
+
+            &-search {
+                width: rem(90px);
+                height: auto;
+            }
+        }
+
+        &-main {
+            height: rem(1150px);
+
+            &-title {
+                width: 100%;
+                height: 100%;
+            }
+
+            &-title h1 {
+                font-size: rem(120px);
+                width: rem(1300px);
+                margin-top: rem(190px);
+                margin-left: rem(-30px);
+                letter-spacing: rem(5px);
+                line-height: rem(150px);
+            }
+
+            &-subtitle {
+                width: rem(850px);
+                height: rem(150px);
+                margin-top: rem(90px);
+
+                & div {
+                    font-size: rem(90px);
+                }
+            }
+
+            &-bg {
+                transform: scale(2);
+                margin-top: rem(900px);
+                margin-left: rem(400px);
+            }
+        }
     }
+
+    
 }

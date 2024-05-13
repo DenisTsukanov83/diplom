@@ -1,10 +1,15 @@
-import { FC, useState, useEffect, MouseEvent } from 'react';
+import { FC, useState, useEffect, MouseEvent, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LogInFeatures.scss';
 import {account} from '../../appwrite/config';
+import { error } from 'console';
+
+import { Context } from '../../App';
 
 
 const LogInFeatures: FC = () => {
+    const {isLogin} = useContext<any>(Context);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -19,12 +24,12 @@ const LogInFeatures: FC = () => {
     }
 
     const login = async() => {
-        try {
-            const x  = account.createSession(email, password);
-            navigate('/dashboard')
-        } catch(e) {
+        account.createEmailPasswordSession(email, password).then((res:any) => {
+            console.log(res)
+            navigate('/dashboard');
+        }).catch((e: any) => {
             console.log('Не найдена почта или не верный пароль!');
-        }
+        })
         
     }
     return (

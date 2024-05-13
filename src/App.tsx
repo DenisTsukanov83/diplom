@@ -1,6 +1,6 @@
 import React, { FC, createContext, useState, MouseEvent, useEffect, ChangeEvent } from 'react';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import BasketPage from './pages/BasketPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -17,7 +17,10 @@ import { BasketType } from './types/BasketType';
 import { UserDataType } from './types/UserDataType';
 import { BorderObjType } from './types/BorderObjType';
 
+import { account } from './appwrite/config';
+
 const Context = createContext({});
+
 
 
 
@@ -26,6 +29,15 @@ const App: FC = () => {
 	const [chagedData, setChangedData] = useState(data.coldSnacks);
 	const [basketArr, setBasketArr] = useState<{ number: number, obj: dishType }[]>([]);
 	const [numberOfBasket, setNumberOfBasket] = useState<number>(0);
+
+	const [isLoading, setIsLoading] = useState(false);
+	function getIsloading(data: any) {
+		if(!data) {
+			setIsLoading(true);
+		} else {
+			setIsLoading(false);
+		}
+	}
 
 	function onChangeDishes(e: MouseEvent<HTMLElement>) {
 		const { textContent } = e.target as HTMLElement;
@@ -342,7 +354,7 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue }}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading}}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
