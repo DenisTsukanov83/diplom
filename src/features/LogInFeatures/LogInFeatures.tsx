@@ -20,19 +20,16 @@ const LogInFeatures: FC = () => {
 
     const login = async() => {
         try {
-            const x  = account.createEmailPasswordSession(email, password);
+            const x  = account.createSession(email, password);
             navigate('/dashboard')
         } catch(e) {
             console.log('Не найдена почта или не верный пароль!');
         }
         
     }
-
-    useEffect(() => {
-        console.log(account)
-    })
     return (
-        <div>
+        <div className='login'>
+            <div className="login-wrapper">
             <h1>Вход</h1>
             <form >
                 <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
@@ -51,6 +48,8 @@ const LogInFeatures: FC = () => {
                     Корзина
                 </button>
             </Link>
+            </div>
+            
         </div>
     );
 }

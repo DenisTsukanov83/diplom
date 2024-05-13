@@ -17,9 +17,15 @@ const DashBoardFeatures = (props: any) => {
             setName(x.name);
             console.log(x)
         } catch (e) {
-            navigate('/login');
+            setTimeout(() => {
+                navigate('/login');
+            }, 1000);
         }
     }
+
+    useEffect(() => {
+        isLogin();
+    })
 
     const handleLogout = async() => {
         try {
@@ -30,9 +36,7 @@ const DashBoardFeatures = (props: any) => {
         }
     }
 
-    useEffect(() => {
-        isLogin();
-    })
+    
     return (
         <div>
             {name && email ? <>
