@@ -17,11 +17,11 @@ const Slider: FC = () => {
         },
         tablet: {
             breakpoint: { max: 1024, min: 464 },
-            items: 2,
+            items: 3,
             partialVisibilityGutter: 30 // this is needed to tell the amount of px that should be visible.
         },
         mobile: {
-            breakpoint: { max: 464, min: 0 },
+            breakpoint: { max: 576, min: 0 },
             items: 1,
             partialVisibilityGutter: 30 // this is needed to tell the amount of px that should be visible.
         }

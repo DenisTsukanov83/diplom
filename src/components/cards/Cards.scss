@@ -16,3 +16,17 @@
     }
 }
 
+@media (max-width: 576px) {
+    .cards {
+        &-content {
+            & h2 {
+                padding-left: rem(40px);
+                margin-top: rem(100px);
+                margin-left: rem(188px);
+                font-size: rem(64px);
+                border-left: rem(6px) solid $main-color-green;
+            }
+        }
+    }
+}
+

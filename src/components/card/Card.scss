@@ -145,3 +145,126 @@
     cursor: pointer;
     border-radius: rem(10px);
 }
+
+@media (max-width: 576px) {
+    .card {
+    width: rem(700px);
+    height: rem(900px);
+    border-radius: rem(50px);
+
+    &-img {
+        width: 100%;
+        height: rem(500px);
+        border-top-left-radius: rem(50px);
+        border-top-right-radius: rem(50px);
+    }
+
+    &-content {
+        padding: rem(20px) rem(40px);
+    }
+
+    &-header {
+        height: rem(100px);
+    }
+
+    &-header h3 {
+        font-size: rem(44px);
+    }
+
+    &-header span {
+        font-size: rem(24px);
+        width: rem(60px);
+    }
+
+    &-text {
+        font-size: rem(26px);
+        width: 90%;
+        height: rem(90px);
+    }
+
+    &-footer {
+        margin-top: rem(36px);
+    }
+
+    &-price {
+        font-size: rem(20px);
+    }
+
+    &-btn-basket {
+        width: rem(300px);
+        margin-right: rem(-8px);
+        height: rem(86px);
+        border-radius: rem(30px);
+        padding: 0 rem(32px)  0 rem(36px);
+        font-size: rem(28px);
+
+        & div:last-child {
+            width: rem(50px);
+        }
+    }
+
+    &-footer {
+        margin-top: rem(36px);
+    }
+
+    &-btn-minus {
+        width: rem(62px);
+        height: rem(44px);
+        margin-left: rem(-5px);
+
+        & div {
+            width: rem(22px);
+            height: auto;
+            width: rem(18px);
+            height: rem(3.27px);
+            background-color: $white-color;
+            border-radius: rem(4px);
+            margin: auto;
+        }
+    }
+
+    &-btn-plus {
+        width: rem(62px);
+        height: rem(44px);
+        margin-right: rem(-3px);
+
+        & div:nth-child(1) {
+            width: rem(18px);
+            height: rem(3.27px);
+            background-color: $white-color;
+            border-radius: rem(4px);
+            margin-left: rem(22px);
+            
+        }
+
+        & div:nth-child(2) {
+            height: rem(18px);
+            width: rem(3.27px);
+            background-color: $white-color;
+            border-radius: rem(4px);
+            margin-left: rem(-11px);
+        }
+    }
+
+    &-round {
+        position: absolute;
+        top: rem(-14px);
+        right: rem(18px);
+        border-radius: 50%;
+        height: rem(100px);
+        width: rem(100px);
+
+        font-size: rem(40px);
+    }
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    background: $main-gradient-green;
+    border: none;
+    color: $white-color;
+    cursor: pointer;
+    border-radius: rem(10px);
+}
+}

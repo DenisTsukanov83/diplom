@@ -4,3 +4,16 @@
 .react-multi-carousel-list {
     height: rem(515px);
 }
+
+
+@media (max-width: 576px) {
+    .react-multi-carousel-list {
+        height: rem(1000px);
+        transform: scale();
+    }
+
+    .react-multi-carousel-item{
+        
+        
+    }
+}
