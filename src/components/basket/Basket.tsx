@@ -96,7 +96,7 @@ const Basket: FC = () => {
                 </Link>
                 <div className="basket-header-title">
                     <h2>Корзина</h2>
-                    <span>{`в корзине ${numberOfBasket} товара`}</span>
+                    <span>{`(в корзине ${numberOfBasket} товара)`}</span>
                 </div>
             </div>
             <div className="basket-list">

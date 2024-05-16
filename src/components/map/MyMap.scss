@@ -65,11 +65,12 @@
             border-top: rem(1px) solid rgb(153, 152, 152);
             margin-top: rem(17px);
             padding: rem(17px) rem(0) rem(10px) rem(10px);
-            
-            &-contact{
+
+            &-contact {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
                 & button {
                     border: none;
                     width: rem(211px);
@@ -119,4 +120,109 @@
 .ymaps-layers-pane {
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale") !important;
     -webkit-filter: grayscale(100%) !important;
+}
+
+@media (max-width: 576px) {
+    .map {
+        margin-top: 0;
+        height: rem(3000px);
+
+        &-contacts {
+            width: rem(1310px);
+            height: rem(2175px);
+            padding: rem(110px) rem(42px) rem(24px) rem(43px);
+            top: rem(80px);
+            left: rem(60px);
+            border-radius: rem(40px);
+
+            &-header {
+                font-size: rem(77px);
+                text-align: center;
+                padding-bottom: rem(65px);
+            }
+
+            &-main {
+                &-item {
+                    padding: rem(60px) rem(60px) rem(35px) rem(20px);
+                    gap: rem(15px);
+                    line-height: rem(23px);
+                }
+
+                &-icon {
+                    width: rem(100px);
+                    height: rem(100px);
+                }
+
+                &-text {
+                    margin-left: rem(45px);
+
+                    &>div:first-child {
+                        font-size: rem(52px);
+                        margin-top: rem(20px);
+                    }
+
+                    &>div:last-child {
+                        font-size: rem(53px);
+                        margin-top: rem(40px);
+                        line-height: rem(80px);
+                    }
+                }
+            }
+
+            &-footer {
+                border-top: rem(1px) solid rgb(153, 152, 152);
+                margin-top: rem(17px);
+                padding: rem(17px) rem(0) rem(10px) rem(10px);
+
+                &-contact {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: rem(100px);
+
+                    & button {
+                        border: none;
+                        width: rem(835px);
+                        height: rem(225px);
+                        border-radius: rem(40px);
+                        font-size: rem(50px);
+                        margin: auto;
+                    }
+
+                    &>div {
+                        &>div:first-child {
+                            font-size: rem(90px);
+                            margin-top: rem(120px);
+                        }
+
+                        &>div:last-child {
+                            font-size: rem(50px);
+                            font-weight: 400;
+                        }
+                    }
+                }
+
+                &-social {
+                    gap: rem(30px);
+                    margin-top: rem(120px);
+                    font-size: rem(52px);
+                    
+
+                    &>div:last-child {
+                        gap: rem(10px);
+
+                        & div {
+                            width: rem(60px);
+                            height: rem(60px);
+                        }
+                    }
+                }
+            }
+        }
+
+        &>div:first-child {
+            height: 201rem!important;
+        }
+    }
 }

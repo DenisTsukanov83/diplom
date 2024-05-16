@@ -53,8 +53,12 @@ function MyMap() {
                     <div className="map-contacts-footer-social">
                         <div>Мы в соц сетях:</div>
                         <div>
-                            <img src={VK} alt="vkontakte-logo.png" />
-                            <img src={Youtube} alt="video-play-button.png" />
+                            <div>
+                                <img src={VK} alt="vkontakte-logo.png" />
+                            </div>
+                            <div>
+                                <img src={Youtube} alt="video-play-button.png" />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -87,3 +87,9 @@
     top: rem(0px);
     left: rem(0px);
 }
+
+@media (max-width: 576px) {
+    .about {
+        display: none;
+    }
+}

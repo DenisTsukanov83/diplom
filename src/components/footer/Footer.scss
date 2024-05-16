@@ -74,3 +74,63 @@
         }
     }
 }
+
+
+@media (max-width: 576px) {
+    .footer {
+        gap: rem(40px);
+        padding: rem(5px) rem(40px) rem(0) rem(70px);
+        color: $white-color;
+        width: 100%;
+        height: rem(880px);
+        align-items: normal;
+    
+        &-arrow {
+            width: rem(200px);
+            height: rem(200px);
+            margin-top: rem(120px);
+        }
+    
+        &-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: rem(100px);
+            & h2 {
+                letter-spacing: rem(16px);
+                font-size: rem(93px);
+                text-transform: uppercase;
+            }
+    
+            & div:nth-child(2) {
+                font-size: rem(45px);
+                margin-top: rem(90px);
+                text-align: center;
+            }
+    
+            & div:nth-child(3) {
+                margin-top: rem(45px);
+            }
+    
+            & div:nth-child(4) {
+                margin-top: rem(20px);
+            }
+    
+            & div:nth-child(5) {
+                margin-top: rem(20px);
+            }
+    
+            & a  {
+                font-weight: 500;
+                font-size: rem(58px);
+                text-decoration: underline rgb(153, 152, 152);;
+                color: $white-color;
+            }
+        }
+    
+        &-nav {
+            display: none;
+
+        }
+    }
+}
