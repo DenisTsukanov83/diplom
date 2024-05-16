@@ -1,0 +1,244 @@
+@import '../../index.scss';
+@import '../../variables.scss';
+
+.cardFeatures {
+    & main {
+        background: linear-gradient(0deg, rgba(33, 31, 32, 1), rgba(68, 64, 63, 1));
+        z-index: 0;
+        position: relative;
+
+        & .map {
+            z-index: 1;
+            position: relative;
+            overflow: hidden;
+            margin-top: rem(10px);
+            height: rem(500px);
+
+
+            & .map-contacts {
+                top: rem(50px);
+                left: rem(115px);
+            }
+        }
+    }
+
+    &-card {
+        padding: rem(47px) rem(121px);
+        position: relative;
+        z-index: 2;
+
+        &-return {
+            display: flex;
+            font-family: Gilroy-Bold;
+            font-size: rem(16px);
+            color: $white-color;
+            cursor: pointer;
+            align-items: center;
+            gap: rem(10px);
+
+            & div:first-child {
+                width: rem(25px);
+                height: rem(25px);
+                border-radius: 50%;
+                background-color: $main-color-green;
+                line-height: rem(25px);
+                text-align: center;
+                font-weight: 900;
+            }
+        }
+
+        &-wrapper {
+            margin-top: rem(27px);
+            display: flex;
+            overflow: hidden;
+            border-radius: rem(10px);
+            background-color: $main-color-2;
+
+            &-img {
+                width: rem(615px);
+            }
+
+            &-content {
+                width: rem(630px);
+                padding: rem(40px) rem(55px);
+                font-family: Gilroy-Normal;
+                color: $white-color;
+
+                & h3 {
+                    font-size: rem(25px);
+                    font-weight: 700;
+                }
+
+                & p {
+                    margin-top: rem(5px);
+                }
+            }
+
+            &-weight {
+                margin-top: rem(112px);
+            }
+
+            &-add {
+                display: flex;
+                align-items: center;
+                gap: rem(20px);
+                margin-top: rem(22px);
+
+                & button {
+                    width: rem(150px);
+                    height: rem(52px);
+                    border: none;
+                    border-radius: rem(10px);
+                    display: flex;
+                    align-items: center;
+                    padding: 0 rem(20px);
+                    color: $white-color;
+                    background: $main-gradient-green;
+                    cursor: pointer;
+
+                    & div:first-child {
+                        border-right: rem(1px) solid $white-color;
+                        height: rem(30px);
+                        line-height: rem(30px);
+                        padding-right: rem(30px);
+                    }
+
+                    & div:last-child {
+                        margin-left: rem(12px);
+                    }
+                }
+
+                & span {
+                    font-size: rem(25px);
+                    margin-left: rem(4px);
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 576px) {
+    .cardFeatures {
+        & main {
+
+            & .cards-menu {
+                display: none;
+            }
+    
+            & .map {
+                margin-top: rem(10px);
+                height: rem(3000px);
+    
+    
+                & .map-contacts {
+                    top: rem(50px);
+                    left: rem(80px);
+                }
+            }
+        }
+    
+        &-card {
+            padding: 0;
+            position: relative;
+            z-index: 2;
+            
+    
+            &-return {
+                font-size: rem(16px);
+                gap: rem(10px);
+                position: absolute;
+                top: rem(38px);
+                left: rem(93px);
+    
+                & div:first-child {
+                    width: rem(145px);
+                    height: rem(145px);
+                    border-radius: 50%;
+                    background-color: $white-color;
+                    color: grey;
+                    line-height: rem(145px);
+                    text-align: center;
+                    font-weight: 900;
+                    font-size: rem(90px);
+                }
+
+                &>div:last-child {
+                    display: none;
+                }
+            }
+    
+            &-wrapper {
+                flex-direction: column;
+                margin-top: 0;
+                display: flex;
+                overflow: hidden;
+                border-radius: rem(10px);
+                background-color: $main-color-2;
+    
+                &-img {
+                    width: 100%;
+                    height: rem(1080px);
+                }
+    
+                &-content {
+                    width: 100%;
+                    padding: rem(40px) rem(55px);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+    
+                    & h3 {
+                        font-size: rem(75px);
+                        margin-top: rem(50px);
+                    }
+    
+                    & p {
+                        margin-top: rem(30px);
+                        font-size: rem(45px);
+                        text-align: center;
+                        width: rem(1000px);
+                    }
+                }
+    
+                &-weight {
+                    margin-top: rem(60px);
+                    font-size: rem(55px);
+                }
+    
+                &-add {
+                    gap: rem(90px);
+                    margin-top: rem(80px);
+    
+                    & button {
+                        width: rem(565px);
+                        height: rem(190px);
+                        border-radius: rem(30px);
+                        padding: 0 rem(80px);
+                        color: $white-color;
+                        background: $main-gradient-green;
+                        cursor: pointer;
+    
+                        & div:first-child {
+                            border-right: rem(1px) solid $white-color;
+                            height: rem(110px);
+                            line-height: rem(110px);
+                            padding-right: rem(80px);
+                            font-size: rem(55px);
+                        }
+    
+                        & div:last-child {
+                            margin-left: rem(50px);
+                            width: rem(100px);
+                        }
+                    }
+    
+                    & span {
+                        font-size: rem(90px);
+                        margin-left: rem(4px);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import React, { FC, useContext} from 'react';
+import React, { FC, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Card.scss';
 
@@ -9,16 +9,18 @@ import { Context } from '../../App';
 interface CardProps {
     data: any,
     numberOfDishes: number;
+    index: number;
 }
 
-const Card: FC<CardProps> = ({ data, numberOfDishes }) => {
-    const { onIncreaseBasketArr } = useContext<any>(Context);
+const Card: FC<CardProps> = ({ data, numberOfDishes, index }) => {
+    const { onIncreaseBasketArr, handleSelectCard } = useContext<any>(Context);
 
     return (
-        <div className="card">
+        <div className="card" data-index={index} onClick={handleSelectCard}>
             <div className="card-img">
                 <img src={data.img} alt="" />
             </div>
+
             <div className="card-content">
                 <div className="card-header">
                     <h3>{data.name}</h3>
@@ -28,7 +30,7 @@ const Card: FC<CardProps> = ({ data, numberOfDishes }) => {
                     {data.text}
                 </div>
 
-                {/* Switch!!! */}
+
                 <div className="card-footer">
                     <div className="card-price">{data.price} ₽</div>
                     <button
@@ -41,16 +43,6 @@ const Card: FC<CardProps> = ({ data, numberOfDishes }) => {
                         </div>
                     </button>
                 </div>
-                {/* <div className="card-footer">
-                    <button className=" btn card-btn-minus">
-                        <div></div>
-                    </button>
-                    <div className="card-price">620 ₽</div>
-                    <button className="btn card-btn-plus">
-                        <div></div>
-                        <div></div>
-                    </button>
-                </div> */}
             </div>
             <Link to={'/basket'} className="no-underline">
                 <div className="card-round" style={{ display: numberOfDishes > 0 ? 'flex' : 'none' }}>

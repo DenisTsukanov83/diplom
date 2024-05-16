@@ -9,6 +9,7 @@ import ConditionsPage from './pages/ConditionsPage';
 import RegisterPage from './pages/RegisterPage';
 import LogInPage from './pages/LogInPage';
 import DashBoardPage from './pages/DashBoardPage';
+import CardPage from './pages/CardPage';
 
 import { data } from './Data';
 
@@ -29,6 +30,8 @@ const App: FC = () => {
 	const [chagedData, setChangedData] = useState(data.coldSnacks);
 	const [basketArr, setBasketArr] = useState<{ number: number, obj: dishType }[]>([]);
 	const [numberOfBasket, setNumberOfBasket] = useState<number>(0);
+
+	const navigate = useNavigate();
 
 	const [isLoading, setIsLoading] = useState(false);
 	function getIsloading(data: any) {
@@ -65,7 +68,14 @@ const App: FC = () => {
 	}
 
 	function onIncreaseBasketArr(e: MouseEvent<HTMLElement>) {
-		const btn = (e.target as HTMLElement).closest('.card-btn-basket') ? (e.target as HTMLElement).closest('.card-btn-basket') : (e.target as HTMLElement).closest('.basketItem-number-plus');
+		let btn: Element | null = null;
+		if((e.target as HTMLElement).closest('.card-btn-basket')) {
+			btn = (e.target as HTMLElement).closest('.card-btn-basket');
+		} else if((e.target as HTMLElement).closest('.basketItem-number-plus')) {
+			btn = (e.target as HTMLElement).closest('.basketItem-number-plus');
+		} else if((e.target as HTMLElement).closest('.cardFeatures-card-wrapper-btn')) {
+			btn = (e.target as HTMLElement).closest('.cardFeatures-card-wrapper-btn');
+		}
 		const cardData = (btn as HTMLElement).dataset.card;
 		if (cardData) {
 			const str = JSON.parse(cardData);
@@ -347,14 +357,28 @@ const App: FC = () => {
 		}
 	}
 
+	//---------------------------------------------------------------------------------------------
+
+	const [selectedCard, onSelectedCard] = useState<dishType | null>(chagedData[0]);
+
+	function handleSelectCard(e: MouseEvent<HTMLElement>) {
+		const el = (e.target as HTMLElement).closest('.card');
+		const el2 = (e.target as HTMLElement).closest('.card-btn-basket');
+		const index = (el as HTMLElement).dataset.index;
+		if(index && !el2) {
+			onSelectedCard(chagedData[+index]);
+			navigate('/card');
+		}
+	}
+
 	useEffect(() => {
-		changeNumberOfBasket()
+		changeNumberOfBasket();
 	});
 
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading}}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard}}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
@@ -363,6 +387,7 @@ const App: FC = () => {
 						<Route path='/register' element={<RegisterPage />} />
 						<Route path='/login' element={<LogInPage />} />
 						<Route path='/dashboard' element={<DashBoardPage />} />
+						<Route path='/card' element={<CardPage />} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
 						
 					</Routes>

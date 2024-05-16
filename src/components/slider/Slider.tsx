@@ -47,7 +47,7 @@ const Slider: FC = () => {
                             number = basketArr[index].number;
                         }
                         return (
-                            <Card key={i} data={el} numberOfDishes={number}/>
+                            <Card key={i} data={el} numberOfDishes={number} index={i}/>
                         )
                     })}
                 </Carousel>
