@@ -1,4 +1,4 @@
-import React, { FC, createContext, useState, MouseEvent, useEffect, ChangeEvent } from 'react';
+import React, { FC, createContext, useState, MouseEvent, useEffect, ChangeEvent, useDeferredValue } from 'react';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -37,6 +37,7 @@ const App: FC = () => {
 	//-----------------------------------------------------------------------------------------------
 	const [nameCurrentUser, setNameCurrentUser] = useState('');
 	const [emailCurrentUser, setEmailCurrentUser] = useState('');
+	const [sessionStatus, setSessionStatus] = useState(false);
 
 	const isLogin = async () => {
 		let email: string = ''
@@ -44,6 +45,8 @@ const App: FC = () => {
             setNameCurrentUser(res.name);
             setEmailCurrentUser(res.email);
 			email = res.email
+			console.log(res)
+			getSessionStatus(true);
         }).catch(e => {
             if (e.message === 'User (role: guests) missing scope (account)') {
             } else {
@@ -54,19 +57,20 @@ const App: FC = () => {
 		return email;
     }
 
-	/* const getUserProfile = async (emailCurrentUser: any) => {
-        database.listDocuments('66483fdb0008523b3164', '66483fed003b4ac61e92', [Query.equal('email', emailCurrentUser)]).then((res: any) => {
-            console.log(`email: ${emailCurrentUser}`)
-			console.log(res.documents)
-            setProfileArr(res.documents);
-        }).catch((e: any) => {
-            console.log(e)
-        });
-    } */
+	const getSessionStatus = (status: boolean) => {
+		setSessionStatus(status)
+	}
 
-	useEffect(() => {
-		/* getUserProfile(emailCurrentUser) */
-	}, [emailCurrentUser])
+	const handleLogIn = () => {
+		console.log(sessionStatus)
+		if(sessionStatus) {
+			navigate('/dashboard');
+		} else {
+			navigate('/login');
+		}
+	}
+
+	//--------------------------------------------------------------------------------------
 
 	const [isLoading, setIsLoading] = useState(false);
 	function getIsloading(data: any) {
@@ -220,9 +224,15 @@ const App: FC = () => {
 		validObj[name] = `${isValid}`;
 	}
 	//-----------------------------------------------------------------------------------------------------------------
-	const [nameInputValue, setNameInputValue] = useState('');
-	const [streetInputValue, setStreetInputValue] = useState('');
-	const [numberHouseInputValue, setNumberHouseInputValue] = useState('');
+	const [userDefaultData, setUserDefaulData] = useState<any>({});
+	const getUserDefaultData = (data: any) => {
+		console.log(data)
+		setUserDefaulData(data);
+		return data;
+	}
+	const [nameInputValue, setNameInputValue] = useState(getUserDefaultData.name);
+	const [streetInputValue, setStreetInputValue] = useState(userDefaultData.street);
+	const [numberHouseInputValue, setNumberHouseInputValue] = useState(userDefaultData.houseNumber);
 	const [changeFromInputValue, setChangeFromInputValue] = useState('');
 
 	//-----------------------------------------------------------------------------------------------------------------
@@ -414,8 +424,8 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard, isLogin, nameCurrentUser, emailCurrentUser,
-				setNameCurrentUser, setEmailCurrentUser
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard, isLogin, nameCurrentUser, emailCurrentUser, 
+				setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, handleLogIn, getSessionStatus, sessionStatus
 				}}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />

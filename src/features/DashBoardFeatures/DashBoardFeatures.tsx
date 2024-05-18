@@ -1,5 +1,5 @@
-import { useContext, } from 'react';
-import { useEffect, useState, MouseEvent, } from 'react';
+import { useContext, useEffect, useState, MouseEvent, } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './DashBoardFeatures.scss';
 import { account, database } from '../../appwrite/config';
@@ -11,7 +11,8 @@ import { Context } from '../../App';
 
 const DashBoardFeatures = () => {
     const navigate = useNavigate();
-    const { isLogin, nameCurrentUser, emailCurrentUser, setNameCurrentUser, setEmailCurrentUser} = useContext<any>(Context);
+    const { isLogin, nameCurrentUser, emailCurrentUser, setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, getSessionStatus } = useContext<any>(Context);
+
     const [phone, setPhone] = useState('');
     const [street, setStreet] = useState('');
     const [numberHouse, setNumberHouse] = useState('');
@@ -20,8 +21,24 @@ const DashBoardFeatures = () => {
     const [floor, setFloor] = useState('');
     const [loaded, setLoaded] = useState(false);
     const [isFirstTime, setIsFirstTime] = useState(true);
-    const [userID, setUserID] = useState('');
+    const [userID, setUserID] = useState(localStorage.getItem('diplomId'));
     const [isLoading, setIsloading] = useState(true);
+
+
+    useEffect(() => {
+        if (!isLoading) {
+            getUserDefaultData({
+                name: nameCurrentUser,
+                email: emailCurrentUser,
+                phone: phone,
+                street: street,
+                numberHouse: numberHouse,
+                numberApartment: numberApartment,
+                entrance: entrance,
+                floor: floor
+            })
+        }
+    }, [isLoading]);
 
     const getUserProfile = async (emailCurrentUser: any) => {
         await database.listDocuments('66483fdb0008523b3164', '66483fed003b4ac61e92', [Query.equal('email', emailCurrentUser)]).then((res: any) => {
@@ -33,7 +50,6 @@ const DashBoardFeatures = () => {
             setEntrance(resDocuments.length ? resDocuments[0].entrance : '');
             setFloor(resDocuments.length ? resDocuments[0].floor : '');
             setIsFirstTime(resDocuments.length ? false : true);
-            console.log(`userID: ${resDocuments}`)
             setIsloading(false);
 
         }).catch((e: any) => {
@@ -47,14 +63,14 @@ const DashBoardFeatures = () => {
         isLogin()
             .then((res: any) => {
                 getUserProfile(res);
+                
             });
     }, [emailCurrentUser, nameCurrentUser]);
-
-    console.log(`useeffect: ${userID}`)
 
     const handleLogout = async () => {
         await account.deleteSession('current').then((res: any) => {
             navigate('/login');
+            getSessionStatus(false);
         }).catch((e: any) => {
             console.log(e);
         })
@@ -73,17 +89,14 @@ const DashBoardFeatures = () => {
                 entrance: entrance,
                 floor: floor
             }).then((res: any) => {
-                console.log(res);
-                console.log(res.$id)
-                setUserID(res.$id)
+                localStorage.setItem('diplomId', res.$id);
             }).catch(e => {
                 console.log(e);
             });
 
             setIsFirstTime(false);
         } else {
-            console.log(`id: ${userID}`)
-            await database.updateDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', userID, {
+            await database.updateDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', userID ? userID : '', {
                 name: nameCurrentUser,
                 email: emailCurrentUser,
                 phone: phone,
@@ -99,6 +112,7 @@ const DashBoardFeatures = () => {
             })
         }
     }
+
 
     return (
         <div className='dashboard'>
@@ -118,9 +132,19 @@ const DashBoardFeatures = () => {
                         <button onClick={sendData}>Сохранить</button>
                     </form>
                     <button onClick={handleLogout}>Выйти</button>
+                    <Link to={'/basket'} className="no-underline">
+                        <button>
+                            Корзина
+                        </button>
+                    </Link>
                 </> : <><div>
                     <h1>Loading</h1>
                     <button onClick={handleLogout}>Выйти</button>
+                    <Link to={'/basket'} className="no-underline">
+                        <button>
+                            Корзина
+                        </button>
+                    </Link>
                 </div></>}
             </div>
 

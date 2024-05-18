@@ -21,7 +21,11 @@ import { InputMask, Track } from '@react-input/mask';
 
 
 const OrderFeatures: FC = () => {
-    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue } = useContext<any>(Context);
+    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, handleLogIn, sessionStatus } = useContext<any>(Context);
+
+    useEffect(() => {
+        console.log(nameInputValue, streetInputValue)
+    })
 
     interface CustomInputProps {
         label: string;
@@ -106,12 +110,6 @@ const OrderFeatures: FC = () => {
 
     //---------------------------------------------------------------------------------------------
 
-    useEffect(() => {
-
-    })
-
-
-
 
     return (
         <div className="order">
@@ -146,11 +144,11 @@ const OrderFeatures: FC = () => {
                             <div className="order-contact-number">+7 (917) 510-57-59</div>
                         </div>
                     </div>
-                    <button className="order-signIn">
+                    <button className="order-signIn" onClick={handleLogIn}>
                         <div className="order-signIn-img">
                             <img src={profile} alt="Profile.png" />
                         </div>
-                        <div className="order-signIn-title">Войти</div>
+                        <div className="order-signIn-title">{!sessionStatus ? 'Войти' : 'Вы вошли'}</div>
                     </button>
 
                     <Link to={'/basket'} className="no-underline">

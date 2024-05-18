@@ -16,7 +16,7 @@ import { Context } from '../../App';
 
 
 const Basket: FC = () => {
-    const { basketArr, numberOfBasket } = useContext<any>(Context);
+    const { basketArr, numberOfBasket, handleLogIn, sessionStatus } = useContext<any>(Context);
     let sum = 0;
     basketArr.forEach((el: any) => {
         sum += el.number * el.obj.price;
@@ -71,14 +71,12 @@ const Basket: FC = () => {
                         <div className="basket-contact-number">+7 (917) 510-57-59</div>
                     </div>
                 </div>
-                <Link to={'/login'} className="no-underline">
-                    <button className="basket-signIn">
-                        <div className="basket-signIn-img">
-                            <img src={profile} alt="Profile.png" />
-                        </div>
-                        <div className="basket-signIn-title">Войти</div>
-                    </button>
-                </Link>
+                <button className="basket-signIn" onClick={handleLogIn}>
+                    <div className="basket-signIn-img">
+                        <img src={profile} alt="Profile.png" />
+                    </div>
+                    <div className="basket-signIn-title">{!sessionStatus ? 'Войти' : 'Вы вошли'}</div>
+                </button>
 
                 <Link to={'/basket'} className="no-underline">
                     <button className="basket-basket">
