@@ -18,7 +18,8 @@ import { BasketType } from './types/BasketType';
 import { UserDataType } from './types/UserDataType';
 import { BorderObjType } from './types/BorderObjType';
 
-import { account } from './appwrite/config';
+import { account, database } from './appwrite/config';
+import { Query } from 'appwrite';
 
 const Context = createContext({});
 
@@ -32,6 +33,40 @@ const App: FC = () => {
 	const [numberOfBasket, setNumberOfBasket] = useState<number>(0);
 
 	const navigate = useNavigate();
+
+	//-----------------------------------------------------------------------------------------------
+	const [nameCurrentUser, setNameCurrentUser] = useState('');
+	const [emailCurrentUser, setEmailCurrentUser] = useState('');
+
+	const isLogin = async () => {
+		let email: string = ''
+        await account.get().then((res: any) => {
+            setNameCurrentUser(res.name);
+            setEmailCurrentUser(res.email);
+			email = res.email
+        }).catch(e => {
+            if (e.message === 'User (role: guests) missing scope (account)') {
+            } else {
+                navigate('/login');
+            }
+            console.log(e.message)
+        });
+		return email;
+    }
+
+	/* const getUserProfile = async (emailCurrentUser: any) => {
+        database.listDocuments('66483fdb0008523b3164', '66483fed003b4ac61e92', [Query.equal('email', emailCurrentUser)]).then((res: any) => {
+            console.log(`email: ${emailCurrentUser}`)
+			console.log(res.documents)
+            setProfileArr(res.documents);
+        }).catch((e: any) => {
+            console.log(e)
+        });
+    } */
+
+	useEffect(() => {
+		/* getUserProfile(emailCurrentUser) */
+	}, [emailCurrentUser])
 
 	const [isLoading, setIsLoading] = useState(false);
 	function getIsloading(data: any) {
@@ -370,6 +405,7 @@ const App: FC = () => {
 			navigate('/card');
 		}
 	}
+	
 
 	useEffect(() => {
 		changeNumberOfBasket();
@@ -378,7 +414,9 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard}}>
+				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard, isLogin, nameCurrentUser, emailCurrentUser,
+				setNameCurrentUser, setEmailCurrentUser
+				}}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
 						<Route path='/basket' element={<BasketPage />} />
@@ -386,7 +424,7 @@ const App: FC = () => {
 						<Route path='/conditions' element={<ConditionsPage />} />
 						<Route path='/register' element={<RegisterPage />} />
 						<Route path='/login' element={<LogInPage />} />
-						<Route path='/dashboard' element={<DashBoardPage />} />
+						<Route path='/dashboard' element={<DashBoardPage/>} />
 						<Route path='/card' element={<CardPage />} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
 						

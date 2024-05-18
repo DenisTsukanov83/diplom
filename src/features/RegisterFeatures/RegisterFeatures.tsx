@@ -21,13 +21,15 @@ const RegisterFeatures = () => {
 
     const register = async () => {
         const id = ID.unique();
-        console.log(id)
-        try {
-            const x = await account.create(id, email, password, name);
-            console.log(x)
-        } catch (e) {
+        await account.create(id, email, password, name).then(res => {
+            alert('Регистрация прошла успешно!');
+            setEmail('');
+            setPassword('');
+            setName('');
+        }).catch(e => {
             console.log(e);
-        }
+        })
+
 
     }
 

@@ -20,7 +20,6 @@ const Card: FC<CardProps> = ({ data, numberOfDishes, index }) => {
             <div className="card-img">
                 <img src={data.img} alt="" />
             </div>
-
             <div className="card-content">
                 <div className="card-header">
                     <h3>{data.name}</h3>
@@ -29,8 +28,6 @@ const Card: FC<CardProps> = ({ data, numberOfDishes, index }) => {
                 <div className="card-text">
                     {data.text}
                 </div>
-
-
                 <div className="card-footer">
                     <div className="card-price">{data.price} ₽</div>
                     <button
