@@ -25,10 +25,9 @@ const LogInFeatures: FC = () => {
 
     const login = async() => {
         account.createEmailPasswordSession(email, password).then((res:any) => {
-            console.log(res)
             navigate('/dashboard');
         }).catch((e: any) => {
-            console.log('Не найдена почта или не верный пароль!');
+            alert(e.message);
         })
         
     }

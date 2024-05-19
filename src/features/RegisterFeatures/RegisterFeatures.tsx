@@ -26,8 +26,8 @@ const RegisterFeatures = () => {
             setEmail('');
             setPassword('');
             setName('');
-        }).catch(e => {
-            console.log(e);
+        }).catch((e: any) => {
+            alert(e.message)
         })
 
 
