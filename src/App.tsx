@@ -41,21 +41,21 @@ const App: FC = () => {
 
 	const isLogin = async () => {
 		let email: string = ''
-        await account.get().then((res: any) => {
-            setNameCurrentUser(res.name);
-            setEmailCurrentUser(res.email);
+		await account.get().then((res: any) => {
+			setNameCurrentUser(res.name);
+			setEmailCurrentUser(res.email);
 			email = res.email
 			console.log(res)
 			getSessionStatus(true);
-        }).catch(e => {
-            if (e.message === 'User (role: guests) missing scope (account)') {
-            } else {
-                navigate('/login');
-            }
-            console.log(e.message)
-        });
+		}).catch(e => {
+			if (e.message === 'User (role: guests) missing scope (account)') {
+			} else {
+				navigate('/login');
+			}
+			console.log(e.message)
+		});
 		return email;
-    }
+	}
 
 	const getSessionStatus = (status: boolean) => {
 		setSessionStatus(status)
@@ -63,7 +63,7 @@ const App: FC = () => {
 
 	const handleLogIn = () => {
 		console.log(sessionStatus)
-		if(sessionStatus) {
+		if (sessionStatus) {
 			navigate('/dashboard');
 		} else {
 			navigate('/login');
@@ -74,7 +74,7 @@ const App: FC = () => {
 
 	const [isLoading, setIsLoading] = useState(false);
 	function getIsloading(data: any) {
-		if(!data) {
+		if (!data) {
 			setIsLoading(true);
 		} else {
 			setIsLoading(false);
@@ -108,11 +108,11 @@ const App: FC = () => {
 
 	function onIncreaseBasketArr(e: MouseEvent<HTMLElement>) {
 		let btn: Element | null = null;
-		if((e.target as HTMLElement).closest('.card-btn-basket')) {
+		if ((e.target as HTMLElement).closest('.card-btn-basket')) {
 			btn = (e.target as HTMLElement).closest('.card-btn-basket');
-		} else if((e.target as HTMLElement).closest('.basketItem-number-plus')) {
+		} else if ((e.target as HTMLElement).closest('.basketItem-number-plus')) {
 			btn = (e.target as HTMLElement).closest('.basketItem-number-plus');
-		} else if((e.target as HTMLElement).closest('.cardFeatures-card-wrapper-btn')) {
+		} else if ((e.target as HTMLElement).closest('.cardFeatures-card-wrapper-btn')) {
 			btn = (e.target as HTMLElement).closest('.cardFeatures-card-wrapper-btn');
 		}
 		const cardData = (btn as HTMLElement).dataset.card;
@@ -209,6 +209,8 @@ const App: FC = () => {
 		'time': '',
 		'persons': 1,
 		'callBack': 'false',
+		'totalSum': 0,
+		'order': []
 	});
 
 	const validObj: BorderObjType = {
@@ -230,14 +232,28 @@ const App: FC = () => {
 	const [numberHouseInputValue, setNumberHouseInputValue] = useState('');
 	const [changeFromInputValue, setChangeFromInputValue] = useState('');
 
-	const [defaultInputValuePhone, setDefaultInputValuePhone] = useState('');
+	const [totalSum, setTotalSum] = useState(0);
+
+	function getTotalSum() {
+		console.log(basketArr)
+		let newObj = UserDataObj;
+		let newArr: string[] = [];
+		let sum = 0;
+		basketArr.forEach((el: any) => {
+			sum += el.number * el.obj.price;
+			newArr.push(`${el.obj.name} - ${el.number}шт`);
+		});
+		newObj.order = newArr;
+		setUserDataObj(newObj);
+		setTotalSum(sum);
+	}
+
+	useEffect(() => {
+		getTotalSum();
+	}, [totalSum]);
 
 	const getUserDefaultData = (data: any) => {
 		console.log(data)
-		/* setNameInputValue(data ? data.name : '');
-		setStreetInputValue(data ? data.street : '');
-		setNumberHouseInputValue(data ? data.numberHouse : '');
-		setDefaultInputValuePhone(data ? data.phone : ''); */
 		const newObj = UserDataObj;
 		newObj.name = data ? data.name : '';
 		newObj.street = data ? data.street : '';
@@ -246,6 +262,7 @@ const App: FC = () => {
 		newObj.apartmentNumber = data ? data.numberApartment : '';
 		newObj.entranceNumber = data ? data.entrance : '';
 		newObj.floorNumber = data ? data.floor : '';
+		newObj.totalSum = totalSum;
 		setUserDataObj(newObj);
 		return data;
 	}
@@ -326,7 +343,8 @@ const App: FC = () => {
 		'houseNumber': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
 		'changeFrom': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
 		'time': '0.0668449198rem solid rgba(255, 255, 255, 0.1)',
-	})
+	});
+
 
 	function sendData(e: ChangeEvent<HTMLInputElement>, successCheckbox: boolean) {
 		e.preventDefault();
@@ -336,7 +354,6 @@ const App: FC = () => {
 		let success = true;
 
 		if (successCheckbox) {
-			
 			for (let key in borderObj) {
 				if (key === 'name') {
 					if (UserDataObj[key].length) {
@@ -344,7 +361,7 @@ const App: FC = () => {
 					} else {
 						newObj[key] = red;
 						success = false;
-						
+
 					}
 				} else if (key === 'phone') {
 					if (UserDataObj.phone.length === 18) {
@@ -368,35 +385,36 @@ const App: FC = () => {
 						newObj[key] = grey;
 					}
 				} else if (key === 'changeFrom') {
-					if(UserDataObj.payType === 'Наличными' && UserDataObj.delivery === 'Доставка' && !UserDataObj.changeFrom.length) {
+					if (UserDataObj.payType === 'Наличными' && UserDataObj.delivery === 'Доставка' && !UserDataObj.changeFrom.length) {
 						newObj[key] = red;
 						success = false;
 					} else {
 						newObj[key] = grey;
 					}
-				} else if(key === 'time') {
-					if(UserDataObj.whatTime === 'Ко времени') {
-						if(UserDataObj.time.length < 5) {
+				} else if (key === 'time') {
+					if (UserDataObj.whatTime === 'Ко времени') {
+						if (UserDataObj.time.length < 5) {
 							newObj[key] = red;
 							success = false;
 						} else {
 							newObj[key] = grey;
 						}
-						
 					}
 				}
+			}
+
+			setBorderObj(newObj);
+			if (success) {
+				alert('Данные отправлены!')
+				alert(JSON.stringify(UserDataObj));
+			} else {
+				alert('Введите данные!')
 			}
 
 		} else {
 			alert('Вы не дали согласие на обработку персональных данных!');
 		}
-		setBorderObj(newObj);
-		if(success) {
-			alert('Данные отправлены!')
-			alert(JSON.stringify(UserDataObj));
-		} else {
-			alert('Введите данные!')
-		}
+
 	}
 
 	//---------------------------------------------------------------------------------------------
@@ -407,12 +425,12 @@ const App: FC = () => {
 		const el = (e.target as HTMLElement).closest('.card');
 		const el2 = (e.target as HTMLElement).closest('.card-btn-basket');
 		const index = (el as HTMLElement).dataset.index;
-		if(index && !el2) {
+		if (index && !el2) {
 			onSelectedCard(chagedData[+index]);
 			navigate('/card');
 		}
 	}
-	
+
 
 	useEffect(() => {
 		changeNumberOfBasket();
@@ -421,8 +439,10 @@ const App: FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrap'>
-				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard, isLogin, nameCurrentUser, emailCurrentUser, 
-				setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, handleLogIn, getSessionStatus, sessionStatus, defaultInputValuePhone
+				<Context.Provider value={{
+					data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard, isLogin, nameCurrentUser, emailCurrentUser,
+					setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, handleLogIn, getSessionStatus, sessionStatus,
+					getTotalSum, totalSum
 				}}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />
@@ -431,10 +451,10 @@ const App: FC = () => {
 						<Route path='/conditions' element={<ConditionsPage />} />
 						<Route path='/register' element={<RegisterPage />} />
 						<Route path='/login' element={<LogInPage />} />
-						<Route path='/dashboard' element={<DashBoardPage/>} />
+						<Route path='/dashboard' element={<DashBoardPage />} />
 						<Route path='/card' element={<CardPage />} />
 						{/* <Route path='*' element={<NotFoundPage />} /> */}
-						
+
 					</Routes>
 				</Context.Provider>
 			</div>

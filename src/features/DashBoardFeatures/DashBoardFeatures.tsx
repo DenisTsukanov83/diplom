@@ -106,16 +106,18 @@ const DashBoardFeatures = () => {
             await database.createDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', 'unique()', data).then((res: any) => {
                 localStorage.setItem('diplomId', res.$id);
                 getUserDefaultData(data);
-            }).catch(e => {
-                console.log(e);
+                alert('Данные сохранены!');
+            }).catch((e: any) => {
+                alert(e.message);
             });
 
             setIsFirstTime(false);
         } else {
             await database.updateDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', userID ? userID : '', data).then((res: any) => {
                 getUserDefaultData(data);
+                alert('Данные сохранены!');
             }).catch((e: any) => {
-                console.log(e);
+                alert(e.message);
             })
         }
     }

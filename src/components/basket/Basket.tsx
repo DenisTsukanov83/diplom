@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import './Basket.scss';
 import { Link } from 'react-router-dom';
 
@@ -16,11 +16,15 @@ import { Context } from '../../App';
 
 
 const Basket: FC = () => {
-    const { basketArr, numberOfBasket, handleLogIn, sessionStatus } = useContext<any>(Context);
-    let sum = 0;
+    const { basketArr, numberOfBasket, handleLogIn, sessionStatus, getTotalSum, totalSum } = useContext<any>(Context);
+    /* let sum = 0;
     basketArr.forEach((el: any) => {
         sum += el.number * el.obj.price;
-    });
+    }); */
+
+    useEffect(() => {
+        getTotalSum();
+    }, [totalSum])
 
     function getDelivery(sum: number) {
         if (sum < 1500) {
@@ -119,9 +123,9 @@ const Basket: FC = () => {
                 <div className="basket-result-text">
                     <div>
                         <span>Итого:</span>
-                        <span> {sum} ₽</span>
+                        <span> {totalSum} ₽</span>
                     </div>
-                    {getDelivery(sum)}
+                    {getDelivery(totalSum)}
                     <div>Минимальная сума заказа 1500 ₽</div>
                 </div>
                 <Link to={'/order'} className='no-underline'>

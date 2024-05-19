@@ -16,4 +16,6 @@ export interface UserDataType {
     'time': string;
     'persons': number;
     'callBack': string;
+    'totalSum': number;
+    'order': string[];
 }
