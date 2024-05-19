@@ -10,7 +10,6 @@ import { Context } from '../../App';
 import { InputMask } from '@react-input/mask';
 
 
-
 const DashBoardFeatures = () => {
     const navigate = useNavigate();
     const { isLogin, nameCurrentUser, emailCurrentUser, setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, getSessionStatus, borderObj, getValid } = useContext<any>(Context);
@@ -138,7 +137,7 @@ const DashBoardFeatures = () => {
                     type="text"
                     className={disabledClass}
                     ref={forwardedRef}
-                    id="custom-input"
+                    id="custom-input-2"
                     placeholder={placeholder}
                     data-user={`${dataUser}`}
                     onChange={handleChange}

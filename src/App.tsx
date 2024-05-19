@@ -1,9 +1,9 @@
-import React, { FC, createContext, useState, MouseEvent, useEffect, ChangeEvent, useDeferredValue } from 'react';
+import React, { FC, createContext, useState, MouseEvent, useEffect, ChangeEvent} from 'react';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import BasketPage from './pages/BasketPage';
-import NotFoundPage from './pages/NotFoundPage';
+/* import NotFoundPage from './pages/NotFoundPage'; */
 import OrderPage from './pages/OrderPage';
 import ConditionsPage from './pages/ConditionsPage';
 import RegisterPage from './pages/RegisterPage';
@@ -18,12 +18,9 @@ import { BasketType } from './types/BasketType';
 import { UserDataType } from './types/UserDataType';
 import { BorderObjType } from './types/BorderObjType';
 
-import { account, database } from './appwrite/config';
-import { Query } from 'appwrite';
+import { account} from './appwrite/config';
 
 const Context = createContext({});
-
-
 
 
 const App: FC = () => {
@@ -250,7 +247,7 @@ const App: FC = () => {
 
 	useEffect(() => {
 		getTotalSum();
-	}, [totalSum]);
+	});
 
 	const getUserDefaultData = (data: any) => {
 		console.log(data)
