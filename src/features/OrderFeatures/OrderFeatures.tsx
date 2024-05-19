@@ -17,11 +17,11 @@ import Footer from '../../components/footer/Footer';
 import OrderButtons from '../../components/orderButtons/OrderButtons';
 
 import { forwardRef } from 'react';
-import { InputMask, Track } from '@react-input/mask';
+import { InputMask } from '@react-input/mask';
 
 
 const OrderFeatures: FC = () => {
-    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, handleLogIn, sessionStatus } = useContext<any>(Context);
+    const { numberOfBasket, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, handleLogIn, sessionStatus, defaultInputValuePhone } = useContext<any>(Context);
 
     useEffect(() => {
         console.log(nameInputValue, streetInputValue)
@@ -105,7 +105,6 @@ const OrderFeatures: FC = () => {
 
     function onClickCheckbox(e: ChangeEvent<HTMLInputElement>) {
         setSuccessCheckbox((e.target as HTMLInputElement).checked === true);
-
     }
 
     //---------------------------------------------------------------------------------------------
@@ -182,9 +181,9 @@ const OrderFeatures: FC = () => {
                                 placeholder='Имя'
                                 onChange={handleChangeUserData}
                                 data-user='name' style={{ border: `${borderObj['name']}` }}
-                                value={nameInputValue} />
+                                value={UserDataObj.name} />
                             <InputMask
-                                component={myInput('Телефон', 'phone', handleChangeUserData, UserDataObj.phone, false)}
+                                component={myInput('Телефон', 'phone', handleChangeUserData, UserDataObj.phone/* defaultInputValuePhone */, false)}
                                 mask="+7 (___) ___-__-__"
                                 replacement={{ _: /\d/ }}
                                 label=""
@@ -243,18 +242,34 @@ const OrderFeatures: FC = () => {
                                     onChange={handleChangeUserData}
                                     data-user='street'
                                     style={{ border: `${borderObj['street']}` }}
-                                    value={streetInputValue} />
+                                    value={UserDataObj.street} />
                                 <input
                                     type="text"
                                     placeholder='Номер дома'
                                     onChange={handleChangeUserData}
                                     data-user='houseNumber'
                                     style={{ border: `${borderObj['houseNumber']}` }}
-                                    value={numberHouseInputValue} />
-                                <input type="text" placeholder='№ квартиры/офиса' onChange={handleChangeUserData} data-user='apartmentNumber' />
-                                <input type="text" placeholder='Подъезд' onChange={handleChangeUserData} data-user='entranceNumber' />
-                                <input type="text" placeholder='Этаж' onChange={handleChangeUserData} data-user='floorNumber' />
-                                <input type="text" placeholder='Комментарий' onChange={handleChangeUserData} data-user='comment' />
+                                    value={UserDataObj.houseNumber} />
+                                <input 
+                                    type="text" placeholder='№ квартиры/офиса' 
+                                    onChange={handleChangeUserData} 
+                                    data-user='apartmentNumber' 
+                                    defaultValue={UserDataObj.apartmentNumber} />
+                                <input 
+                                    type="text" placeholder='Подъезд' 
+                                    onChange={handleChangeUserData} 
+                                    data-user='entranceNumber' 
+                                    defaultValue={UserDataObj.entranceNumber}/>
+                                <input 
+                                    type="text" placeholder='Этаж' 
+                                    onChange={handleChangeUserData} 
+                                    data-user='floorNumber' 
+                                    defaultValue={UserDataObj.floorNumber}/>
+                                <input 
+                                    type="text" 
+                                    placeholder='Комментарий' 
+                                    onChange={handleChangeUserData} 
+                                    data-user='comment' />
                             </div>
                         </div>
                     </div>

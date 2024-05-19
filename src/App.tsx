@@ -224,16 +224,31 @@ const App: FC = () => {
 		validObj[name] = `${isValid}`;
 	}
 	//-----------------------------------------------------------------------------------------------------------------
-	const [userDefaultData, setUserDefaulData] = useState<any>({});
+
+	const [nameInputValue, setNameInputValue] = useState('');
+	const [streetInputValue, setStreetInputValue] = useState('');
+	const [numberHouseInputValue, setNumberHouseInputValue] = useState('');
+	const [changeFromInputValue, setChangeFromInputValue] = useState('');
+
+	const [defaultInputValuePhone, setDefaultInputValuePhone] = useState('');
+
 	const getUserDefaultData = (data: any) => {
 		console.log(data)
-		setUserDefaulData(data);
+		/* setNameInputValue(data ? data.name : '');
+		setStreetInputValue(data ? data.street : '');
+		setNumberHouseInputValue(data ? data.numberHouse : '');
+		setDefaultInputValuePhone(data ? data.phone : ''); */
+		const newObj = UserDataObj;
+		newObj.name = data ? data.name : '';
+		newObj.street = data ? data.street : '';
+		newObj.houseNumber = data ? data.numberHouse : '';
+		newObj.phone = data ? data.phone : '';
+		newObj.apartmentNumber = data ? data.numberApartment : '';
+		newObj.entranceNumber = data ? data.entrance : '';
+		newObj.floorNumber = data ? data.floor : '';
+		setUserDataObj(newObj);
 		return data;
 	}
-	const [nameInputValue, setNameInputValue] = useState(getUserDefaultData.name);
-	const [streetInputValue, setStreetInputValue] = useState(userDefaultData.street);
-	const [numberHouseInputValue, setNumberHouseInputValue] = useState(userDefaultData.houseNumber);
-	const [changeFromInputValue, setChangeFromInputValue] = useState('');
 
 	//-----------------------------------------------------------------------------------------------------------------
 
@@ -324,7 +339,6 @@ const App: FC = () => {
 			
 			for (let key in borderObj) {
 				if (key === 'name') {
-					console.log(UserDataObj[key].length)
 					if (UserDataObj[key].length) {
 						newObj[key] = grey;
 					} else {
@@ -371,23 +385,6 @@ const App: FC = () => {
 						
 					}
 				}
-				/* if(UserDataObj[key].length) {
-					newObj[key] = grey;
-				} else {
-					if(key === 'changeFrom') {
-						newObj[key] = UserDataObj.payType === 'Наличными' ? red : grey;
-					} else if(key === 'time') {
-						newObj[key] = UserDataObj.whatTime === 'Ко времени' ? red : grey;
-					} else if(key === 'street') {
-						newObj[key] = UserDataObj.delivery === 'Доставка' ? red : grey;
-					} else if(key === 'houseNumber') {
-						newObj[key] = UserDataObj.delivery === 'Доставка' ? red : grey;
-					} else {
-						newObj[key] = red;
-					}
-					
-				} */
-
 			}
 
 		} else {
@@ -425,7 +422,7 @@ const App: FC = () => {
 		<div className='App'>
 			<div className='wrap'>
 				<Context.Provider value={{ data, changedDishes, chagedData, onChangeDishes, basketArr, onIncreaseBasketArr, numberOfBasket, onDecreaseBasketArr, onDeleteDish, UserDataObj, handleChangeUserData, sendData, borderObj, getValid, nameInputValue, streetInputValue, numberHouseInputValue, changeFromInputValue, isLoading, getIsloading, handleSelectCard, selectedCard, isLogin, nameCurrentUser, emailCurrentUser, 
-				setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, handleLogIn, getSessionStatus, sessionStatus
+				setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, handleLogIn, getSessionStatus, sessionStatus, defaultInputValuePhone
 				}}>
 					<Routes>
 						<Route path='/diplom/:block?' element={<HomePage />} />

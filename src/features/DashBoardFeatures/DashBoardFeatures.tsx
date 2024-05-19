@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, MouseEvent, } from 'react';
+import { useContext, useEffect, useState, MouseEvent, ChangeEvent, forwardRef, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './DashBoardFeatures.scss';
@@ -7,11 +7,13 @@ import { Query } from 'appwrite';
 
 import { Context } from '../../App';
 
+import { InputMask } from '@react-input/mask';
+
 
 
 const DashBoardFeatures = () => {
     const navigate = useNavigate();
-    const { isLogin, nameCurrentUser, emailCurrentUser, setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, getSessionStatus } = useContext<any>(Context);
+    const { isLogin, nameCurrentUser, emailCurrentUser, setNameCurrentUser, setEmailCurrentUser, getUserDefaultData, getSessionStatus, borderObj, getValid } = useContext<any>(Context);
 
     const [phone, setPhone] = useState('');
     const [street, setStreet] = useState('');
@@ -27,6 +29,7 @@ const DashBoardFeatures = () => {
 
     useEffect(() => {
         if (!isLoading) {
+
             getUserDefaultData({
                 name: nameCurrentUser,
                 email: emailCurrentUser,
@@ -63,7 +66,7 @@ const DashBoardFeatures = () => {
         isLogin()
             .then((res: any) => {
                 getUserProfile(res);
-                
+
             });
     }, [emailCurrentUser, nameCurrentUser]);
 
@@ -71,6 +74,16 @@ const DashBoardFeatures = () => {
         await account.deleteSession('current').then((res: any) => {
             navigate('/login');
             getSessionStatus(false);
+            getUserDefaultData({
+                name: '',
+                email: '',
+                phone: '',
+                street: '',
+                numberHouse: '',
+                numberApartment: '',
+                entrance: '',
+                floor: ''
+            })
         }).catch((e: any) => {
             console.log(e);
         })
@@ -78,41 +91,72 @@ const DashBoardFeatures = () => {
 
     const sendData = async (e: MouseEvent<HTMLElement>) => {
         e.preventDefault();
+        const data = {
+            name: nameCurrentUser,
+            email: emailCurrentUser,
+            phone: phone,
+            street: street,
+            numberHouse: numberHouse,
+            numberApartment: numberApartment,
+            entrance: entrance,
+            floor: floor
+        }
         if (isFirstTime) {
-            await database.createDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', 'unique()', {
-                name: nameCurrentUser,
-                email: emailCurrentUser,
-                phone: phone,
-                street: street,
-                numberHouse: numberHouse,
-                numberApartment: numberApartment,
-                entrance: entrance,
-                floor: floor
-            }).then((res: any) => {
+
+            await database.createDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', 'unique()', data).then((res: any) => {
                 localStorage.setItem('diplomId', res.$id);
+                getUserDefaultData(data);
             }).catch(e => {
                 console.log(e);
             });
 
             setIsFirstTime(false);
         } else {
-            await database.updateDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', userID ? userID : '', {
-                name: nameCurrentUser,
-                email: emailCurrentUser,
-                phone: phone,
-                street: street,
-                numberHouse: numberHouse,
-                numberApartment: numberApartment,
-                entrance: entrance,
-                floor: floor
-            }).then((res: any) => {
-
+            await database.updateDocument('66483fdb0008523b3164', '66483fed003b4ac61e92', userID ? userID : '', data).then((res: any) => {
+                getUserDefaultData(data);
             }).catch((e: any) => {
                 console.log(e);
             })
         }
     }
 
+    interface CustomInputProps {
+        label: string;
+    }
+
+    function myInput(placeholder: string,
+        dataUser: string,
+        handleChange: (e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) => void,
+        val: string | number,
+        disabled: boolean) {
+        const disabledClass = disabled ? 'order-disablet-class' : '';
+        const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(({ label }, forwardedRef) => {
+            return (
+                <input
+                    type="text"
+                    className={disabledClass}
+                    ref={forwardedRef}
+                    id="custom-input"
+                    placeholder={placeholder}
+                    data-user={`${dataUser}`}
+                    onChange={handleChange}
+                    defaultValue={val}
+                    disabled={disabled}
+                    style={{ border: `${borderObj[dataUser]}` }} />
+            );
+        });
+        return CustomInput;
+    }
+
+    const modifyPhone = (input: string) => {
+        return { mask: '+7 (___) ___-__-__' };
+    };
+
+
+    function handlePhone(e: MouseEvent<HTMLElement> | ChangeEvent<HTMLInputElement>) {
+        setPhone((e.target as HTMLInputElement).value);
+        (e.target as HTMLInputElement).focus();
+    }
 
     return (
         <div className='dashboard'>
@@ -123,7 +167,16 @@ const DashBoardFeatures = () => {
                     <form>
                         <input type="text" placeholder='Имя' onChange={(e) => setNameCurrentUser(e.target.value)} value={nameCurrentUser} disabled style={{ opacity: '0.5' }} />
                         <input type="mail" placeholder='Почта' onChange={(e) => setEmailCurrentUser(e.target.value)} value={emailCurrentUser} disabled style={{ opacity: '0.5' }} />
-                        <input type="text" placeholder='Телефон' onChange={(e) => setPhone(e.target.value)} value={phone} />
+                        {/* <input type="text" placeholder='Телефон' onChange={(e) => setPhone(e.target.value)} value={phone} /> */}
+
+                        <InputMask
+                            component={myInput('Телефон', 'phone', handlePhone, phone, false)}
+                            mask="+7 (___) ___-__-__"
+                            replacement={{ _: /\d/ }}
+                            label=""
+                            modify={modifyPhone}
+                            onMask={(event) => getValid('phone', event.detail.isValid)}
+                        />
                         <input type="text" placeholder='Улица' onChange={(e) => setStreet(e.target.value)} value={street} />
                         <input type="text" placeholder='Номер дома' onChange={(e) => setNumberHouse(e.target.value)} value={numberHouse} />
                         <input type="text" placeholder='№ квартиры/офиса' onChange={(e) => setNumberApartment(e.target.value)} value={numberApartment} />
